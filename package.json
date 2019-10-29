@@ -1,0 +1,23 @@
+{
+  "name": "fake-rest-api-nodejs",
+  "version": "1.0.0",
+  "description": "Fake REST API using NodeJS + JSON Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinhuy/fake-rest-api-nodejs.git"
+  },
+  "keywords": [
+    "json-server",
+    "rest-api"
+  ],
+  "author": "Robin Huy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robinhuy/fake-rest-api-nodejs/issues"
+  },
+  "homepage": "https://github.com/robinhuy/fake-rest-api-nodejs#readme"
+}
