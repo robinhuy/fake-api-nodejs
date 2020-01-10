@@ -1802,5 +1802,23 @@
       "quantity": 63,
       "status": false
     }
+  ],
+  "cart": [
+    {
+      "id": 6,
+      "name": "Ginger - Fresh",
+      "thumbnail": "https://robohash.org/fugitidest.bmp?size=350x200&set=set1",
+      "price": 116.37,
+      "quantity": 84,
+      "status": true
+    },
+    {
+      "id": 4,
+      "name": "Bread - Dark Rye, Loaf",
+      "thumbnail": "https://robohash.org/quiistequi.png?size=350x200&set=set1",
+      "price": 58.62,
+      "quantity": 68,
+      "status": true
+    }
   ]
 }
