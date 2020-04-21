@@ -4,7 +4,7 @@
   "description": "Fake REST API using NodeJS + JSON Server",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "export PORT=3000 && node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/robinhuy/fake-rest-api-nodejs#readme",
   "dependencies": {
-    "json-server": "^0.15.1"
+    "json-server": "^0.15.1",
+    "jsonwebtoken": "^8.5.1"
   }
 }
