@@ -1,7 +1,8 @@
 const jsonServer = require("json-server");
 const {authenticate, isAuthenticated} = require('./jwt-authenticate')
+const { databaseFile, jwtSecret } = require("./config.json");
 const server = jsonServer.create();
-const router = jsonServer.router("database.json");
+const router = jsonServer.router(databaseFile);
 const middlewares = jsonServer.defaults();
 const port = process.env.PORT || 3000;
 
@@ -19,9 +20,13 @@ server.post("/login", (req, res, next) => {
         ? res.jsonp(user)
         : res
             .status(400)
-            .jsonp({ message: "Username or password is incorrect!" })
+            .jsonp({ message: "Email or password is incorrect!" })
     )
     .catch((err) => next(err));
+});
+
+server.post("/register", (req, res, next) => {
+  
 });
 
 // Access control
@@ -39,8 +44,10 @@ server.use((req, res, next) => {
   }
 });
 
+// Setup others routes
 server.use(router);
 
+// Start server
 server.listen(port, () => {
   console.log("Server is running on port " + port);
 });

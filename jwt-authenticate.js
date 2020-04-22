@@ -1,30 +1,40 @@
 const jwt = require("jsonwebtoken");
+const { readFile } = require("fs");
+const { databaseFile, jwtSecret, jwtTokenexpiresIn } = require("./config.json");
 
-const jwtSecret = "robin";
-const users = [
-  {
-    id: 1,
-    username: "test",
-    password: "test",
-    firstName: "Test",
-    lastName: "User",
-  },
-];
+// Authenticate by email & password
+function authenticate({ email, password }) {
+  return new Promise((resolve, reject) => {
+    // Read database file
+    readFile(databaseFile, (err, data) => {
+      if (err) reject(err);
 
-async function authenticate({ username, password }) {
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
-  if (user) {
-    const token = jwt.sign({ sub: user.id }, jwtSecret);
-    const { password, ...userWithoutPassword } = user;
-    return {
-      ...userWithoutPassword,
-      token,
-    };
-  }
+      let jsonData = JSON.parse(data);
+
+      // Find user from database file
+      const user = jsonData.users.find(
+        (u) => u.email === email && u.password === password
+      );
+
+      if (user) {
+        // Return user with jwt token
+        console.log(jwtTokenexpiresIn);
+        const token = jwt.sign({ sub: user.id }, jwtSecret, {
+          expiresIn: jwtTokenexpiresIn,
+        });
+        const { password, ...userWithoutPassword } = user;
+        resolve({
+          ...userWithoutPassword,
+          token,
+        });
+      } else {
+        resolve(null);
+      }
+    });
+  });
 }
 
+// Check if user is authenticated (Bearer token)
 function isAuthenticated(req) {
   let token, decoded;
   if (
