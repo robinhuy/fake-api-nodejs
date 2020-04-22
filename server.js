@@ -1,5 +1,5 @@
 const jsonServer = require("json-server");
-const {authenticate, isAuthenticated} = require('./jwt-authenticate')
+const { authenticate, isAuthenticated } = require("./jwt-authenticate");
 const { databaseFile, jwtSecret } = require("./config.json");
 const server = jsonServer.create();
 const router = jsonServer.router(databaseFile);
@@ -18,16 +18,12 @@ server.post("/login", (req, res, next) => {
     .then((user) =>
       user
         ? res.jsonp(user)
-        : res
-            .status(400)
-            .jsonp({ message: "Email or password is incorrect!" })
+        : res.status(400).jsonp({ message: "Email or password is incorrect!" })
     )
     .catch((err) => next(err));
 });
 
-server.post("/register", (req, res, next) => {
-  
-});
+server.post("/register", (req, res, next) => {});
 
 // Access control
 server.use((req, res, next) => {

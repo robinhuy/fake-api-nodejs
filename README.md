@@ -1,6 +1,11 @@
 # Fake REST API NodeJS
 
-Get a full fake REST API with __zero coding__ in __less than 30 seconds__ using [NodeJS](https://nodejs.org/en/) & [JSON Server](https://github.com/typicode/json-server)
+Get a full fake REST API with **zero coding** in **less than 30 seconds** ([NodeJS](https://nodejs.org/en/) + [JSON Server](https://github.com/typicode/json-server) + [JSON Webtoken](https://github.com/auth0/node-jsonwebtoken)).
+
+Support JWT authentication:
+
+- Login by email & password.
+- Protect API by request methods. Default protected methods is "POST", "PUT", "PATCH", "DELETE".
 
 ## Getting started
 
@@ -23,13 +28,16 @@ Run server
 npm start
 ```
 
-## Modified your data
+## Modify your data
 
-All your data was placed in `database.json`. 
+All the data was placed in `database.json`. Edit it to suit your purpose.
 
-You can using [https://mockaroo.com/](https://mockaroo.com/) to mock data, and publish your code to [https://heroku.com/](https://heroku.com/) to get a Public API.
+You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and publish your code to [https://heroku.com/](https://heroku.com/) to get a Public API.
 
-## Access & modified API
+**Note**: `users` is used to authenticate, the others is just demo data.
+
+## Access & modify API
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
+If you want to change logic of authentication, please edit file `server.js`.
