@@ -7,6 +7,8 @@ Support JWT authentication:
 - Login by email & password.
 - Protect API by request methods. Default protected methods is "POST", "PUT", "PATCH", "DELETE".
 
+*[Vietnamese documents](https://techmaster.vn/posts/35578/tao-1-rest-api-phuc-vu-cho-muc-dich-hoc-tap-trong-30-giay)*
+
 ## Getting started
 
 Clone this repository
