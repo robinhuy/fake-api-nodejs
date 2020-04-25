@@ -35,6 +35,7 @@
       "id": 3,
       "name": "Catherine Waberer",
       "email": "cwaberer2@umn.edu",
+      "password": "cwaberer2",
       "phone": "652-951-9313",
       "birthday": "12/2/2002",
       "bio": "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
