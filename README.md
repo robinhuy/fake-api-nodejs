@@ -36,7 +36,23 @@ All the data was placed in `database.json`. Edit it to suit your purpose.
 
 You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and publish your code to [https://heroku.com/](https://heroku.com/) to get a Public API.
 
-**Note**: `users` is used to authenticate, the others is just demo data.
+**Note**:
+- To protect resources, decleare resources and protected methods in `database.json`:
+
+```
+    "protected_resources": {
+        "users": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        "products": ["POST", "PUT", "PATCH", "DELETE"]
+    }
+```
+- User can login by API `/login`, method `POST`, using email & password in resource `users`:
+
+```
+    {
+        "email": "",
+        "password": ""
+    }
+```
 
 ## Access & modify API
 

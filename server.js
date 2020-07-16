@@ -31,6 +31,11 @@ server.post("/login", (req, res, next) => {
 // Access control
 server.use((req, res, next) => {
   const protectedResources = db.get("protected_resources").value();
+  if (!protectedResources) {
+    next();
+    return;
+  }
+
   const resources = req.path.slice(1).split("/")[0];
 
   if (protectedResources[resources]) {
