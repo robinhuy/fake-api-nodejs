@@ -6,6 +6,11 @@ const router = jsonServer.router(databaseFile);
 const middlewares = jsonServer.defaults();
 const port = process.env.PORT || 3000;
 
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
+const adapter = new FileSync(databaseFile);
+const db = low(adapter);
+
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
 
@@ -23,13 +28,12 @@ server.post("/login", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-server.post("/register", (req, res, next) => {});
-
 // Access control
 server.use((req, res, next) => {
-  // Protect routes by requests
-  const requestMethod = req.method.toUpperCase();
-  if (["POST", "PUT", "PATCH", "DELETE"].includes(requestMethod)) {
+  const protectedResources = db.get("protected_resources").value();
+  const resources = req.path.slice(1).split("/")[0];
+
+  if (protectedResources[resources]) {
     if (isAuthenticated(req)) {
       next();
     } else {

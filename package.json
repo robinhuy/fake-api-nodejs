@@ -22,6 +22,7 @@
   "homepage": "https://github.com/robinhuy/fake-rest-api-nodejs#readme",
   "dependencies": {
     "json-server": "^0.15.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "lowdb": "^1.0.0"
   }
 }
