@@ -36,9 +36,13 @@ server.use((req, res, next) => {
     return;
   }
 
-  const resources = req.path.slice(1).split("/")[0];
+  const resource = req.path.slice(1).split("/")[0];
+  const protectedResource = protectedResources[resource].map((item) =>
+    item.toUpperCase()
+  );
+  const reqMethod = req.method.toUpperCase();
 
-  if (protectedResources[resources]) {
+  if (protectedResource && protectedResource.includes(reqMethod)) {
     if (isAuthenticated(req)) {
       next();
     } else {
