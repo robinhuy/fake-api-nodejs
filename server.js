@@ -37,9 +37,9 @@ server.use((req, res, next) => {
   }
 
   const resource = req.path.slice(1).split("/")[0];
-  const protectedResource = protectedResources[resource].map((item) =>
-    item.toUpperCase()
-  );
+  const protectedResource =
+    protectedResources[resource] &&
+    protectedResources[resource].map((item) => item.toUpperCase());
   const reqMethod = req.method.toUpperCase();
 
   if (protectedResource && protectedResource.includes(reqMethod)) {

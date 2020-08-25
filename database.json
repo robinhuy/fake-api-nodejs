@@ -5,16 +5,6 @@
   },
   "users": [
     {
-      "id": 0,
-      "name": "Robin Huy",
-      "email": "robin@huy",
-      "password": "123456",
-      "phone": "123-456-7890",
-      "birthday": "01/01/1970",
-      "gender": "Male",
-      "avatar": "https://avatars1.githubusercontent.com/u/12640832"
-    },
-    {
       "id": 1,
       "name": "Nanette MacDearmaid",
       "email": "nmacdearmaid0@ucla.edu",
