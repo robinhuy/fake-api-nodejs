@@ -2,7 +2,7 @@
 
 Get a full fake REST API with **zero coding** in **less than 30 seconds** ([NodeJS](https://nodejs.org/en/) + [JSON Server](https://github.com/typicode/json-server) + [JSON Webtoken](https://github.com/auth0/node-jsonwebtoken)).
 
-Support JWT authentication:
+Support JWT Bearer authentication:
 
 - Login by email & password.
 - Protect API by request methods. Default protected methods is "POST", "PUT", "PATCH", "DELETE".
