@@ -30,6 +30,12 @@ Run server
 npm start
 ```
 
+or
+
+```bash
+npm run dev
+```
+
 ## Modify your data
 
 All the data was placed in `database.json`. Edit it to suit your purpose.
