@@ -20,6 +20,17 @@ server.use(middlewares);
 // Handle POST, PUT and PATCH request
 server.use(jsonServer.bodyParser);
 
+// Register request
+server.post("/register", (req, res, next) => {
+  const lastUser = db.get("users").maxBy("id").value();
+  const newUserId = parseInt(lastUser.id) + 1;
+  const newUser = { id: newUserId, ...req.body };
+
+  db.get("users").push(newUser).write();
+
+  res.jsonp(newUser);
+});
+
 // Login in request
 server.post("/login", (req, res, next) => {
   authenticate(req.body)
