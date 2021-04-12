@@ -12,7 +12,7 @@ const adapter = new FileSync(databaseFile);
 const db = low(adapter);
 
 const formidable = require("formidable");
-const { rename } = require("fs");
+const { copyFile, unlink } = require("fs");
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
@@ -55,11 +55,13 @@ server.post("/upload", (req, res, next) => {
 
     const file = files.file;
 
-    rename(file.path, "./public/upload/" + file.name, (err) => {
+    copyFile(file.path, "./public/upload/" + file.name, (err) => {
       if (err) throw err;
 
       files.file.path = "/" + file.name;
       res.jsonp(files);
+
+      unlink(file.path);
     });
   });
 });

@@ -18,7 +18,6 @@ function authenticate({ email, password }) {
 
       if (user) {
         // Return user with jwt token
-        console.log(jwtTokenexpiresIn);
         const token = jwt.sign({ sub: user.id }, jwtSecret, {
           expiresIn: jwtTokenexpiresIn,
         });
