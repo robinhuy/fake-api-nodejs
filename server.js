@@ -1,18 +1,19 @@
+const formidable = require("formidable");
+const { copyFile } = require("fs");
+
 const jsonServer = require("json-server");
 const { authenticate, isAuthenticated } = require("./jwt-authenticate");
 const { defaultPort, databaseFile, jwtSecret } = require("./config.json");
-const server = jsonServer.create();
-const router = jsonServer.router(databaseFile);
-const middlewares = jsonServer.defaults();
-const port = process.env.PORT || defaultPort;
 
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(databaseFile);
 const db = low(adapter);
 
-const formidable = require("formidable");
-const { copyFile, unlink } = require("fs");
+const server = jsonServer.create();
+const router = jsonServer.router(db);
+const middlewares = jsonServer.defaults();
+const port = process.env.PORT || defaultPort;
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
