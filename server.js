@@ -1,5 +1,5 @@
 const formidable = require("formidable");
-const { copyFile } = require("fs");
+const { copyFile, unlink } = require("fs");
 
 const jsonServer = require("json-server");
 const { authenticate, isAuthenticated } = require("./jwt-authenticate");
@@ -59,10 +59,12 @@ server.post("/upload", (req, res, next) => {
     copyFile(file.path, "./public/upload/" + file.name, (err) => {
       if (err) throw err;
 
+      unlink(file.path, (err) => {
+        if (err) console.log(err);
+      });
+
       files.file.path = "/" + file.name;
       res.jsonp(files);
-
-      unlink(file.path);
     });
   });
 });
