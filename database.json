@@ -6,12 +6,12 @@
   "users": [
     {
       "id": 1,
-      "name": "Nanette MacDearmaid",
-      "email": "nmacdearmaid0@ucla.edu",
-      "password": "nmacdearmaid0",
-      "phone": "185-129-2326",
-      "birthday": "11/18/1995",
-      "gender": "Female",
+      "name": "Administrator",
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "phone": "123-456-7890",
+      "birthday": "11/11/1991",
+      "gender": "Male",
       "avatar": "https://robohash.org/faceresintblanditiis.bmp?size=150x150&set=set1"
     },
     {
