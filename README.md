@@ -4,8 +4,13 @@ Get a full fake REST API with **zero coding** in **less than 30 seconds** ([Node
 
 Support JWT Bearer authentication:
 
-- Login by email & password.
-- Protect API by request methods. Default protected methods is "POST", "PUT", "PATCH", "DELETE".
+- Register user with username & password or email & password.
+
+- Login with registered users.
+
+- Protect API by resource and request methods.
+
+Support upload files (beta).
 
 *[Vietnamese documents](https://techmaster.vn/posts/35578/tao-1-rest-api-phuc-vu-cho-muc-dich-hoc-tap-trong-30-giay)*
 
@@ -16,6 +21,8 @@ Clone this repository
 ```bash
 git clone https://github.com/robinhuy/fake-rest-api-nodejs.git
 ```
+
+(or fork to your account and clone the forked repo)
 
 Install dependencies
 
@@ -51,17 +58,20 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
         "products": ["POST", "PUT", "PATCH", "DELETE"]
     }
 ```
-- User can login by API `/login`, method `POST`, using email & password in resource `users`:
+
+- User can login by API `/login`, method `POST`, using `username & password` or `email & password` in resource `users`. Body request like this:
 
 ```
     {
-        "email": "",
-        "password": ""
+        "email": "admin",
+        "password": "admin"
     }
 ```
+
+- Change default port, database file, jwt secret or jwt token expires in `config.json`.
 
 ## Access & modify API
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
-If you want to change logic of authentication, please edit file `server.js`.
+If you want to change logic of authentication or add more feature, please edit file `server.js`.
