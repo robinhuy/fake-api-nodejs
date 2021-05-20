@@ -43,6 +43,9 @@ or
 npm run dev
 ```
 
+The server will run on `http://localhost:3000`.
+Public API: `http://localhost:3000/products` (GET method).
+
 ## Modify your data
 
 All the data was placed in `database.json`. Edit it to suit your purpose.
