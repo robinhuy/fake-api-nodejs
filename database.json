@@ -1,217 +1,261 @@
 {
   "protected_resources": {
-    "users": ["GET", "POST", "PUT", "PATCH", "DELETE"],
     "products": ["POST", "PUT", "PATCH", "DELETE"]
   },
   "users": [
     {
       "id": 1,
-      "name": "Administrator",
+      "firstName": "Administrator",
+      "lastName": "",
+      "username": "admin",
       "email": "admin@gmail.com",
       "password": "admin",
-      "phone": "123-456-7890",
-      "birthday": "11/11/1991",
-      "gender": "Male",
-      "avatar": "https://robohash.org/faceresintblanditiis.bmp?size=150x150&set=set1"
+      "avatar": "https://robohash.org/eaquequasincidunt.png?size=50x50&set=set1",
+      "gender": "Genderfluid",
+      "phone": "933-658-1213",
+      "birthday": "1994-03-23",
+      "status": true,
+      "createdAt": 1609483221000,
+      "modifiedAt": 1609483221000
     },
     {
       "id": 2,
-      "name": "Chancey Di Maria",
-      "email": "cdi1@simplemachines.org",
-      "password": "simplemachines",
-      "phone": "462-441-6079",
-      "birthday": "4/4/2008",
-      "bio": "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
+      "firstName": "Alberta",
+      "lastName": "Farncomb",
+      "username": "afarncomb1",
+      "email": "afarncomb1@liveinternet.ru",
+      "password": "FfshsAlZ",
+      "avatar": "https://robohash.org/accusantiumminimamagni.png?size=50x50&set=set1",
       "gender": "Male",
-      "avatar": "https://robohash.org/modiinventoremolestias.png?size=150x150&set=set1"
+      "phone": "510-449-7332",
+      "birthday": "2002-03-11",
+      "status": false,
+      "createdAt": 1617440961000,
+      "modifiedAt": 1618301961000
     },
     {
       "id": 3,
-      "name": "Catherine Waberer",
-      "email": "cwaberer2@umn.edu",
-      "password": "cwaberer2",
-      "phone": "652-951-9313",
-      "birthday": "12/2/2002",
-      "bio": "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
-      "gender": "Female",
-      "avatar": "https://robohash.org/dolortemporibussoluta.png?size=150x150&set=set1"
+      "firstName": "Kizzie",
+      "lastName": "Shama",
+      "username": "kshama2",
+      "email": "kshama2@prlog.org",
+      "password": "kjU6qK1Bm",
+      "avatar": "https://robohash.org/voluptatemdebitiset.png?size=50x50&set=set1",
+      "gender": "Male",
+      "phone": "676-983-4977",
+      "birthday": "1997-09-29",
+      "status": false,
+      "createdAt": 1615745961000,
+      "modifiedAt": 1615976361000
     },
     {
       "id": 4,
-      "name": "Bobbette Kenway",
-      "email": "bkenway3@wiley.com",
-      "password": "bkenway3",
-      "phone": "767-354-8928",
-      "birthday": "11/14/1995",
-      "bio": "In congue. Etiam justo. Etiam pretium iaculis justo.",
-      "gender": "Female",
-      "avatar": "https://robohash.org/abesselaudantium.jpg?size=150x150&set=set1"
+      "firstName": "Tremayne",
+      "lastName": "Americi",
+      "username": "tamerici3",
+      "email": "tamerici3@skype.com",
+      "password": "xbNRPGk",
+      "avatar": "https://robohash.org/rerumoccaecatiprovident.png?size=50x50&set=set1",
+      "gender": "Genderfluid",
+      "phone": "548-721-4661",
+      "birthday": "2004-10-01",
+      "status": false,
+      "createdAt": 1610281342000,
+      "modifiedAt": 1619283693000
     },
     {
       "id": 5,
-      "name": "Goober Banting",
-      "email": "gbanting4@prweb.com",
-      "password": "gbanting4",
-      "phone": "563-471-5104",
-      "birthday": "9/22/1992",
-      "bio": "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
-      "gender": "Male",
-      "avatar": "https://robohash.org/atqueearumquaerat.png?size=150x150&set=set1"
+      "firstName": "Luciana",
+      "lastName": "Fernihough",
+      "username": "lfernihough4",
+      "email": "lfernihough4@oaic.gov.au",
+      "password": "hDuqo8j5TXTl",
+      "avatar": "https://robohash.org/nobisplaceataut.png?size=50x50&set=set1",
+      "gender": "Female",
+      "phone": "597-670-2841",
+      "birthday": "1999-01-30",
+      "status": true,
+      "createdAt": 1614362898000,
+      "modifiedAt": 1615410795000
     },
     {
       "id": 6,
-      "name": "Roana Clail",
-      "email": "rclail5@geocities.jp",
-      "password": "rclail5",
-      "phone": "952-408-0056",
-      "birthday": "5/13/1992",
-      "bio": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
-      "gender": "Female",
-      "avatar": "https://robohash.org/voluptatelaborummodi.jpg?size=150x150&set=set1"
+      "firstName": "Ursuline",
+      "lastName": "Gorrick",
+      "username": "ugorrick5",
+      "email": "ugorrick5@meetup.com",
+      "password": "GH1yLLmJoq",
+      "avatar": "https://robohash.org/voluptatemenimerror.png?size=50x50&set=set1",
+      "gender": "Bigender",
+      "phone": "686-821-0488",
+      "birthday": "1996-01-29",
+      "status": false,
+      "createdAt": 1621283400000,
+      "modifiedAt": 1621528590000
     },
     {
       "id": 7,
-      "name": "Lindy Hubbard",
-      "email": "lhubbard6@networkadvertising.org",
-      "password": "lhubbard6",
-      "phone": "967-486-1276",
-      "birthday": "11/24/2006",
-      "bio": "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.\n\nPellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-      "gender": "Male",
-      "avatar": "https://robohash.org/doloresnatusaut.jpg?size=150x150&set=set1"
+      "firstName": "Carlotta",
+      "lastName": "Chivers",
+      "username": "cchivers6",
+      "email": "cchivers6@ebay.com",
+      "password": "n5hIT4NKk8Q",
+      "avatar": "https://robohash.org/voluptatequasiest.png?size=50x50&set=set1",
+      "gender": "Non-binary",
+      "phone": "428-749-0095",
+      "birthday": "1998-05-19",
+      "status": true,
+      "createdAt": 1614957930000,
+      "modifiedAt": 1614957930000
     },
     {
       "id": 8,
-      "name": "Jerad Adney",
-      "email": "jadney7@weebly.com",
-      "password": "jadney7",
-      "phone": "787-503-1575",
-      "birthday": "1/5/2009",
-      "bio": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
-      "gender": "Male",
-      "avatar": "https://robohash.org/debitiseacumque.bmp?size=150x150&set=set1"
+      "firstName": "Thorpe",
+      "lastName": "Humblestone",
+      "username": "thumblestone7",
+      "email": "thumblestone7@china.com.cn",
+      "password": "iYlKMYJqIy2T",
+      "avatar": "https://robohash.org/voluptasetexplicabo.png?size=50x50&set=set1",
+      "gender": "Bigender",
+      "phone": "722-376-2905",
+      "birthday": "2007-09-24",
+      "status": true,
+      "createdAt": 1613665586000,
+      "modifiedAt": 1613665586000
     },
     {
       "id": 9,
-      "name": "Davina Tassaker",
-      "email": "dtassaker8@latimes.com",
-      "password": "dtassaker8",
-      "phone": "932-840-1592",
-      "birthday": "10/24/2000",
-      "bio": "Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.",
-      "gender": "Female",
-      "avatar": "https://robohash.org/liberoametdolores.png?size=150x150&set=set1"
+      "firstName": "Chick",
+      "lastName": "Kynnd",
+      "username": "ckynnd8",
+      "email": "ckynnd8@spotify.com",
+      "password": "cGdnd1HapM",
+      "avatar": "https://robohash.org/commodiexplicaboveritatis.png?size=50x50&set=set1",
+      "gender": "Bigender",
+      "phone": "825-276-2045",
+      "birthday": "2007-03-01",
+      "status": true,
+      "createdAt": 1612782806000,
+      "modifiedAt": 1612782806000
     },
     {
       "id": 10,
-      "name": "Torrance Arboine",
-      "email": "tarboine9@delicious.com",
-      "password": "tarboine9",
-      "phone": "411-464-4275",
-      "birthday": "8/18/2005",
-      "bio": "Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
-      "gender": "Male",
-      "avatar": "https://robohash.org/estipsamalias.png?size=150x150&set=set1"
+      "firstName": "Alexis",
+      "lastName": "Loughan",
+      "username": "aloughan9",
+      "email": "aloughan9@soundcloud.com",
+      "password": "BUSPoSABA3s",
+      "avatar": "https://robohash.org/suntisteaperiam.png?size=50x50&set=set1",
+      "gender": "Polygender",
+      "phone": "391-273-2238",
+      "birthday": "2000-05-04",
+      "status": true,
+      "createdAt": 1615245193000,
+      "modifiedAt": 1616246055000
     }
   ],
   "products": [
-    {
-      "id": 1,
-      "name": "Appetizer - Lobster Phyllo Roll",
-      "thumbnail": "https://robohash.org/animiblanditiisveniam.jpg?size=350x200&set=set1",
-      "price": 121.99,
-      "quantity": 61,
-      "status": false
-    },
-    {
-      "id": 2,
-      "name": "Leeks - Large",
-      "thumbnail": "https://robohash.org/architectodoloresquo.jpg?size=350x200&set=set1",
-      "price": 150.05,
-      "quantity": 87,
-      "status": true
-    },
-    {
-      "id": 3,
-      "name": "Wiberg Cure",
-      "thumbnail": "https://robohash.org/etoccaecatieum.jpg?size=350x200&set=set1",
-      "price": 173.51,
-      "quantity": 92,
-      "status": false
-    },
-    {
-      "id": 4,
-      "name": "Bread - Dark Rye, Loaf",
-      "thumbnail": "https://robohash.org/quiistequi.png?size=350x200&set=set1",
-      "price": 58.62,
-      "quantity": 68,
-      "status": true
-    },
-    {
-      "id": 5,
-      "name": "Coffee - Beans, Whole",
-      "thumbnail": "https://robohash.org/maioresatquenihil.png?size=350x200&set=set1",
-      "price": 171.54,
-      "quantity": 11,
-      "status": false
-    },
-    {
-      "id": 6,
-      "name": "Ginger - Fresh",
-      "thumbnail": "https://robohash.org/fugitidest.bmp?size=350x200&set=set1",
-      "price": 116.37,
-      "quantity": 84,
-      "status": true
-    },
-    {
-      "id": 7,
-      "name": "Pastry - Cherry Danish - Mini",
-      "thumbnail": "https://robohash.org/temporibuseossimilique.jpg?size=350x200&set=set1",
-      "price": 195.78,
-      "quantity": 22,
-      "status": true
-    },
-    {
-      "id": 8,
-      "name": "Chicken - Leg, Fresh",
-      "thumbnail": "https://robohash.org/minusabsaepe.jpg?size=350x200&set=set1",
-      "price": 183.8,
-      "quantity": 14,
-      "status": true
-    },
-    {
-      "id": 9,
-      "name": "Dish Towel",
-      "thumbnail": "https://robohash.org/etnonrepellendus.jpg?size=350x200&set=set1",
-      "price": 86.2,
-      "quantity": 30,
-      "status": false
-    },
-    {
-      "id": 10,
-      "name": "Mix - Cappucino Cocktail",
-      "thumbnail": "https://robohash.org/maximeadicta.jpg?size=350x200&set=set1",
-      "price": 190.35,
-      "quantity": 13,
-      "status": true
-    }
-  ],
-  "cart": [
-    {
-      "id": 4,
-      "name": "Bread - Dark Rye, Loaf",
-      "thumbnail": "https://robohash.org/quiistequi.png?size=350x200&set=set1",
-      "price": 58.62,
-      "quantity": 68,
-      "status": true
-    },
-    {
-      "id": 6,
-      "name": "Ginger - Fresh",
-      "thumbnail": "https://robohash.org/fugitidest.bmp?size=350x200&set=set1",
-      "price": 116.37,
-      "quantity": 84,
-      "status": true
-    }
+    [
+      {
+        "id": 1,
+        "name": "Pork Salted Bellies",
+        "price": 442,
+        "quantity": 16,
+        "thumbnail": "http://dummyimage.com/213x100.png/dddddd/000000",
+        "status": true,
+        "createdAt": 1610632995000,
+        "modifiedAt": 1615620960000
+      },
+      {
+        "id": 2,
+        "name": "Grapes - Black",
+        "price": 893,
+        "quantity": 22,
+        "thumbnail": "http://dummyimage.com/151x100.png/ff4444/ffffff",
+        "status": false,
+        "createdAt": 1615796160000,
+        "modifiedAt": 1615796160000
+      },
+      {
+        "id": 3,
+        "name": "Nantucket - 518ml",
+        "price": 693,
+        "quantity": 41,
+        "thumbnail": "http://dummyimage.com/125x100.png/dddddd/000000",
+        "status": false,
+        "createdAt": 1614190320000,
+        "modifiedAt": 1614190320000
+      },
+      {
+        "id": 4,
+        "name": "Onions - White",
+        "price": 472,
+        "quantity": 67,
+        "thumbnail": "http://dummyimage.com/117x100.png/cc0000/ffffff",
+        "status": false,
+        "createdAt": 1609751340000,
+        "modifiedAt": 1617525900000
+      },
+      {
+        "id": 5,
+        "name": "Lamb - Whole, Fresh",
+        "price": 157,
+        "quantity": 83,
+        "thumbnail": "http://dummyimage.com/160x100.png/dddddd/000000",
+        "status": true,
+        "createdAt": 1620154080000,
+        "modifiedAt": 1620154080000
+      },
+      {
+        "id": 6,
+        "name": "Carrots - Purple, Organic",
+        "price": 816,
+        "quantity": 37,
+        "thumbnail": "http://dummyimage.com/241x100.png/5fa2dd/ffffff",
+        "status": false,
+        "createdAt": 1619270940000,
+        "modifiedAt": 1619443380000
+      },
+      {
+        "id": 7,
+        "name": "Bag - Regular Kraft 20 Lb",
+        "price": 157,
+        "quantity": 60,
+        "thumbnail": "http://dummyimage.com/156x100.png/cc0000/ffffff",
+        "status": false,
+        "createdAt": 1614098400000,
+        "modifiedAt": "2021-04-16"
+      },
+      {
+        "id": 8,
+        "name": "Flour - Bran, Red",
+        "price": 970,
+        "quantity": 40,
+        "thumbnail": "http://dummyimage.com/157x100.png/5fa2dd/ffffff",
+        "status": false,
+        "createdAt": 1617954000000,
+        "modifiedAt": 1619964420000
+      },
+      {
+        "id": 9,
+        "name": "Bread - Bistro Sour",
+        "price": 112,
+        "quantity": 77,
+        "thumbnail": "http://dummyimage.com/147x100.png/dddddd/000000",
+        "status": false,
+        "createdAt": 1612357500000,
+        "modifiedAt": 1614956760000
+      },
+      {
+        "id": 10,
+        "name": "Soup - Campbells Bean Medley",
+        "price": 353,
+        "quantity": 40,
+        "thumbnail": "http://dummyimage.com/203x100.png/ff4444/ffffff",
+        "status": false,
+        "createdAt": 1615146960000,
+        "modifiedAt": 1615146960000
+      }
+    ]
   ]
 }

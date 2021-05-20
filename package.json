@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/robinhuy/fake-rest-api-nodejs#readme",
   "dependencies": {
+    "date-fns": "^2.21.3",
     "formidable": "^1.2.2",
     "json-server": "^0.16.1",
     "jsonwebtoken": "^8.5.1",

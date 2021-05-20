@@ -1,5 +1,6 @@
 const formidable = require("formidable");
 const { copyFile, unlink } = require("fs");
+const { format } = require("date-fns");
 
 const jsonServer = require("json-server");
 const { authenticate, isAuthenticated } = require("./jwt-authenticate");
@@ -21,6 +22,20 @@ server.use(middlewares);
 // Handle POST, PUT and PATCH request
 server.use(jsonServer.bodyParser);
 
+// Save createdAt and updatedAt automatically
+server.use((req, res, next) => {
+  const currentTime = Date.now();
+
+  if (req.method === "POST") {
+    req.body.createdAt = currentTime;
+    req.body.modifiedAt = currentTime;
+  } else if (["PUT", "PATCH"].includes(req.method)) {
+    req.body.modifiedAt = currentTime;
+  }
+
+  next();
+});
+
 // Register request
 server.post("/register", (req, res, next) => {
   const lastUser = db.get("users").maxBy("id").value();
@@ -38,7 +53,7 @@ server.post("/login", (req, res, next) => {
     .then((user) =>
       user
         ? res.jsonp(user)
-        : res.status(400).jsonp({ message: "Email or password is incorrect!" })
+        : res.status(400).jsonp({ message: "Username or password is incorrect!" })
     )
     .catch((err) => next(err));
 });
