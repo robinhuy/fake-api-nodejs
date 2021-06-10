@@ -1,9 +1,14 @@
-const formidable = require("formidable");
-const { copyFile, unlink } = require("fs");
 const { format } = require("date-fns");
 
 const jsonServer = require("json-server");
-const { authenticate, isAuthenticated } = require("./jwt-authenticate");
+const { isAuthenticated } = require("./jwt-authenticate");
+const {
+  loginHandler,
+  uploadFileHandler,
+  uploadFilesHandler,
+  uploadImageHandler,
+  registerHandler,
+} = require("./additional_routes");
 const { defaultPort, databaseFile, jwtSecret } = require("./config.json");
 
 const low = require("lowdb");
@@ -37,52 +42,18 @@ server.use((req, res, next) => {
 });
 
 // Register request
-server.post("/register", (req, res, next) => {
-  const lastUser = db.get("users").maxBy("id").value();
-  const newUserId = parseInt(lastUser.id) + 1;
-  const newUser = { id: newUserId, ...req.body };
-
-  db.get("users").push(newUser).write();
-
-  res.jsonp(newUser);
+server.post("/register", (req, res) => {
+  registerHandler(db, req, res);
 });
 
 // Login in request
-server.post("/login", (req, res, next) => {
-  authenticate(req.body)
-    .then((user) =>
-      user
-        ? res.jsonp(user)
-        : res.status(400).jsonp({ message: "Username or password is incorrect!" })
-    )
-    .catch((err) => next(err));
-});
+server.post("/login", loginHandler);
 
-// Upload files
-server.post("/upload", (req, res, next) => {
-  const form = formidable({ multiples: true });
+// Upload 1 file
+server.post("/upload-file", uploadFileHandler);
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      res.writeHead(err.httpCode || 400, { "Content-Type": "text/plain" });
-      res.end(String(err));
-      return;
-    }
-
-    const file = files.file;
-
-    copyFile(file.path, "./public/upload/" + file.name, (err) => {
-      if (err) throw err;
-
-      unlink(file.path, (err) => {
-        if (err) console.log(err);
-      });
-
-      files.file.path = "/" + file.name;
-      res.jsonp(files);
-    });
-  });
-});
+// Upload multiple files
+server.post("/upload-files", uploadFilesHandler);
 
 // Access control
 server.use((req, res, next) => {
