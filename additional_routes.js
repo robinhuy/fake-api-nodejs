@@ -2,6 +2,16 @@ const formidable = require("formidable");
 const { access, copyFile, unlink } = require("fs/promises");
 const { authenticate, isAuthenticated } = require("./jwt-authenticate");
 
+const responseBadRequest = (res) => {
+  res.writeHead(400, { "Content-Type": "text/plain" });
+  res.end("Invalid Request!");
+};
+
+const responseServerError = (err, res) => {
+  res.writeHead(err?.status || 500);
+  res.end();
+};
+
 const handleUploadFile = async (req, file) => {
   const uploadFolder = "uploads";
 
@@ -47,16 +57,18 @@ module.exports = {
   },
 
   uploadFileHandler: (req, res) => {
+    if (req.headers["content-type"] === "application/json") {
+      responseBadRequest(res);
+      return;
+    }
+
     const form = formidable();
 
     form.parse(req, async (err, fields, files) => {
       let file = files.file;
 
       if (err || !file) {
-        if (!err) err = "Bad Request!";
-
-        res.writeHead(err.httpCode || 400, { "Content-Type": "text/plain" });
-        res.end(String(err));
+        responseBadRequest(res);
         return;
       }
 
@@ -64,23 +76,24 @@ module.exports = {
         file = await handleUploadFile(req, file);
         res.jsonp(file);
       } catch (err) {
-        res.writeHead(err.status || 500);
-        res.end();
+        responseServerError(err, res);
       }
     });
   },
 
   uploadFilesHandler: (req, res) => {
+    if (req.headers["content-type"] === "application/json") {
+      responseBadRequest(res);
+      return;
+    }
+
     const form = formidable({ multiples: true });
 
     form.parse(req, async (err, fields, files) => {
       let filesUploaded = files.files;
 
       if (err || !filesUploaded) {
-        if (!err) err = "Bad Request!";
-
-        res.writeHead(err.httpCode || 400, { "Content-Type": "text/plain" });
-        res.end(String(err));
+        responseBadRequest(res);
         return;
       }
 
@@ -101,9 +114,8 @@ module.exports = {
         );
 
         res.jsonp(filesUploaded);
-      } catch (error) {
-        res.writeHead(error.status || 500);
-        res.end();
+      } catch (err) {
+        responseServerError(err, res);
       }
     });
   },
