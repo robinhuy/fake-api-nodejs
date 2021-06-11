@@ -4,12 +4,12 @@ const { authenticate, isAuthenticated } = require("./jwt-authenticate");
 
 const responseBadRequest = (res) => {
   res.writeHead(400, { "Content-Type": "text/plain" });
-  res.end("Invalid Request!");
+  res.end("Bad Request!");
 };
 
-const responseServerError = (err, res) => {
-  res.writeHead(err?.status || 500);
-  res.end();
+const responseServerError = (res) => {
+  res.writeHead(500, { "Content-Type": "text/plain" });
+  res.end("Internal Server Error!");
 };
 
 const handleUploadFile = async (req, file) => {
@@ -76,7 +76,8 @@ module.exports = {
         file = await handleUploadFile(req, file);
         res.jsonp(file);
       } catch (err) {
-        responseServerError(err, res);
+        console.log(err);
+        responseServerError(res);
       }
     });
   },
@@ -115,7 +116,8 @@ module.exports = {
 
         res.jsonp(filesUploaded);
       } catch (err) {
-        responseServerError(err, res);
+        console.log(err);
+        responseServerError(res);
       }
     });
   },
