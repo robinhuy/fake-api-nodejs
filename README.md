@@ -1,16 +1,18 @@
 # Fake REST API NodeJS
 
-Get a full fake REST API with **zero coding** in **less than 30 seconds** ([NodeJS](https://nodejs.org/en/) + [JSON Server](https://github.com/typicode/json-server) + [JSON Webtoken](https://github.com/auth0/node-jsonwebtoken)).
+Get a full fake REST API as soon as possible. Base on [NodeJS](https://nodejs.org/en/) + [JSON Server](https://github.com/typicode/json-server).
 
-Support JWT Bearer authentication:
+Support more features:
 
 - Register user with username & password or email & password.
 
 - Login with registered users.
 
-- Protect API by resource and request methods.
+- Protect resources using JWT Bearer authentication.
 
 - Upload files.
+
+Preview: [https://fake-rest-api-nodejs.herokuapp.com](https://fake-rest-api-nodejs.herokuapp.com/)
 
 ## Getting started
 

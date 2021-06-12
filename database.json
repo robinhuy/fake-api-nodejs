@@ -1,18 +1,7 @@
 {
   "protected_resources": {
-    "users": [
-      "GET",
-      "POST",
-      "PUT",
-      "PATCH",
-      "DELETE"
-    ],
-    "products": [
-      "POST",
-      "PUT",
-      "PATCH",
-      "DELETE"
-    ]
+    "users": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    "products": ["POST", "PUT", "PATCH", "DELETE"]
   },
   "users": [
     {
@@ -167,107 +156,105 @@
     }
   ],
   "products": [
-    [
-      {
-        "id": 1,
-        "name": "Pork Salted Bellies",
-        "price": 442,
-        "quantity": 16,
-        "thumbnail": "http://dummyimage.com/213x100.png/dddddd/000000",
-        "status": true,
-        "createdAt": 1610632995000,
-        "modifiedAt": 1615620960000
-      },
-      {
-        "id": 2,
-        "name": "Grapes - Black",
-        "price": 893,
-        "quantity": 22,
-        "thumbnail": "http://dummyimage.com/151x100.png/ff4444/ffffff",
-        "status": false,
-        "createdAt": 1615796160000,
-        "modifiedAt": 1615796160000
-      },
-      {
-        "id": 3,
-        "name": "Nantucket - 518ml",
-        "price": 693,
-        "quantity": 41,
-        "thumbnail": "http://dummyimage.com/125x100.png/dddddd/000000",
-        "status": false,
-        "createdAt": 1614190320000,
-        "modifiedAt": 1614190320000
-      },
-      {
-        "id": 4,
-        "name": "Onions - White",
-        "price": 472,
-        "quantity": 67,
-        "thumbnail": "http://dummyimage.com/117x100.png/cc0000/ffffff",
-        "status": false,
-        "createdAt": 1609751340000,
-        "modifiedAt": 1617525900000
-      },
-      {
-        "id": 5,
-        "name": "Lamb - Whole, Fresh",
-        "price": 157,
-        "quantity": 83,
-        "thumbnail": "http://dummyimage.com/160x100.png/dddddd/000000",
-        "status": true,
-        "createdAt": 1620154080000,
-        "modifiedAt": 1620154080000
-      },
-      {
-        "id": 6,
-        "name": "Carrots - Purple, Organic",
-        "price": 816,
-        "quantity": 37,
-        "thumbnail": "http://dummyimage.com/241x100.png/5fa2dd/ffffff",
-        "status": false,
-        "createdAt": 1619270940000,
-        "modifiedAt": 1619443380000
-      },
-      {
-        "id": 7,
-        "name": "Bag - Regular Kraft 20 Lb",
-        "price": 157,
-        "quantity": 60,
-        "thumbnail": "http://dummyimage.com/156x100.png/cc0000/ffffff",
-        "status": false,
-        "createdAt": 1614098400000,
-        "modifiedAt": "2021-04-16"
-      },
-      {
-        "id": 8,
-        "name": "Flour - Bran, Red",
-        "price": 970,
-        "quantity": 40,
-        "thumbnail": "http://dummyimage.com/157x100.png/5fa2dd/ffffff",
-        "status": false,
-        "createdAt": 1617954000000,
-        "modifiedAt": 1619964420000
-      },
-      {
-        "id": 9,
-        "name": "Bread - Bistro Sour",
-        "price": 112,
-        "quantity": 77,
-        "thumbnail": "http://dummyimage.com/147x100.png/dddddd/000000",
-        "status": false,
-        "createdAt": 1612357500000,
-        "modifiedAt": 1614956760000
-      },
-      {
-        "id": 10,
-        "name": "Soup - Campbells Bean Medley",
-        "price": 353,
-        "quantity": 40,
-        "thumbnail": "http://dummyimage.com/203x100.png/ff4444/ffffff",
-        "status": false,
-        "createdAt": 1615146960000,
-        "modifiedAt": 1615146960000
-      }
-    ]
+    {
+      "id": 1,
+      "name": "Pork Salted Bellies",
+      "price": 442,
+      "quantity": 16,
+      "thumbnail": "http://dummyimage.com/213x100.png/dddddd/000000",
+      "status": true,
+      "createdAt": 1610632995000,
+      "modifiedAt": 1615620960000
+    },
+    {
+      "id": 2,
+      "name": "Grapes - Black",
+      "price": 893,
+      "quantity": 22,
+      "thumbnail": "http://dummyimage.com/151x100.png/ff4444/ffffff",
+      "status": false,
+      "createdAt": 1615796160000,
+      "modifiedAt": 1615796160000
+    },
+    {
+      "id": 3,
+      "name": "Nantucket - 518ml",
+      "price": 693,
+      "quantity": 41,
+      "thumbnail": "http://dummyimage.com/125x100.png/dddddd/000000",
+      "status": false,
+      "createdAt": 1614190320000,
+      "modifiedAt": 1614190320000
+    },
+    {
+      "id": 4,
+      "name": "Onions - White",
+      "price": 472,
+      "quantity": 67,
+      "thumbnail": "http://dummyimage.com/117x100.png/cc0000/ffffff",
+      "status": false,
+      "createdAt": 1609751340000,
+      "modifiedAt": 1617525900000
+    },
+    {
+      "id": 5,
+      "name": "Lamb - Whole, Fresh",
+      "price": 157,
+      "quantity": 83,
+      "thumbnail": "http://dummyimage.com/160x100.png/dddddd/000000",
+      "status": true,
+      "createdAt": 1620154080000,
+      "modifiedAt": 1620154080000
+    },
+    {
+      "id": 6,
+      "name": "Carrots - Purple, Organic",
+      "price": 816,
+      "quantity": 37,
+      "thumbnail": "http://dummyimage.com/241x100.png/5fa2dd/ffffff",
+      "status": false,
+      "createdAt": 1619270940000,
+      "modifiedAt": 1619443380000
+    },
+    {
+      "id": 7,
+      "name": "Bag - Regular Kraft 20 Lb",
+      "price": 157,
+      "quantity": 60,
+      "thumbnail": "http://dummyimage.com/156x100.png/cc0000/ffffff",
+      "status": false,
+      "createdAt": 1614098400000,
+      "modifiedAt": "2021-04-16"
+    },
+    {
+      "id": 8,
+      "name": "Flour - Bran, Red",
+      "price": 970,
+      "quantity": 40,
+      "thumbnail": "http://dummyimage.com/157x100.png/5fa2dd/ffffff",
+      "status": false,
+      "createdAt": 1617954000000,
+      "modifiedAt": 1619964420000
+    },
+    {
+      "id": 9,
+      "name": "Bread - Bistro Sour",
+      "price": 112,
+      "quantity": 77,
+      "thumbnail": "http://dummyimage.com/147x100.png/dddddd/000000",
+      "status": false,
+      "createdAt": 1612357500000,
+      "modifiedAt": 1614956760000
+    },
+    {
+      "id": 10,
+      "name": "Soup - Campbells Bean Medley",
+      "price": 353,
+      "quantity": 40,
+      "thumbnail": "http://dummyimage.com/203x100.png/ff4444/ffffff",
+      "status": false,
+      "createdAt": 1615146960000,
+      "modifiedAt": 1615146960000
+    }
   ]
 }
