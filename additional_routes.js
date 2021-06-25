@@ -59,7 +59,7 @@ module.exports = {
 
     const existUsername = db
       .get("users")
-      .find((user) => user.username === username)
+      .find((user) => username && user.username === username)
       .value();
 
     if (existUsername) {
@@ -72,7 +72,7 @@ module.exports = {
 
     const existEmail = db
       .get("users")
-      .find((user) => user.email === email)
+      .find((user) => email && user.email === email)
       .value();
 
     if (existEmail) {
