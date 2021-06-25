@@ -1,41 +1,12 @@
 const jwt = require("jsonwebtoken");
-const { readFile } = require("fs");
-const { databaseFile, jwtSecret, jwtTokenexpiresInMinutes } = require("./config.json");
+const { jwtSecret, jwtTokenexpiresInMinutes } = require("./config.json");
 
-// Authenticate by username/email & password
-function authenticate({ username, email, password }) {
-  return new Promise((resolve, reject) => {
-    // Read database file
-    readFile(databaseFile, (err, data) => {
-      if (err) reject(err);
-
-      let jsonData = JSON.parse(data);
-
-      // Find user from database file
-      const user = jsonData.users.find(
-        (u) =>
-          (u.email === email || u.username === username) &&
-          u.password === password
-      );
-
-      if (user) {
-        // Return user with jwt token
-        const token = jwt.sign({ sub: user.id }, jwtSecret, {
-          expiresIn: jwtTokenexpiresInMinutes + "m",
-        });
-        const { password, ...userWithoutPassword } = user;
-        resolve({
-          ...userWithoutPassword,
-          token,
-        });
-      } else {
-        resolve(null);
-      }
-    });
+function generateJwtToken(userId) {
+  return jwt.sign({ sub: userId }, jwtSecret, {
+    expiresIn: jwtTokenexpiresInMinutes + "m",
   });
 }
 
-// Check if user is authenticated (Bearer token)
 function isAuthenticated(req) {
   let token, decoded;
   if (
@@ -55,6 +26,6 @@ function isAuthenticated(req) {
 }
 
 module.exports = {
-  authenticate,
+  generateJwtToken,
   isAuthenticated,
 };

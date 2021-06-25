@@ -1,16 +1,6 @@
 const formidable = require("formidable");
 const { access, copyFile, unlink } = require("fs/promises");
-const { authenticate, isAuthenticated } = require("./jwt-authenticate");
-
-const responseBadRequest = (res) => {
-  res.writeHead(400, { "Content-Type": "text/plain" });
-  res.end("Bad Request!");
-};
-
-const responseServerError = (res) => {
-  res.writeHead(500, { "Content-Type": "text/plain" });
-  res.end("Internal Server Error!");
-};
+const { generateJwtToken } = require("./jwt-authenticate");
 
 const handleUploadFile = async (req, file) => {
   const uploadFolder = "uploads";
@@ -34,19 +24,65 @@ const handleUploadFile = async (req, file) => {
 };
 
 module.exports = {
-  loginHandler: (req, res, next) => {
-    authenticate(req.body)
-      .then((user) =>
-        user
-          ? res.jsonp(user)
-          : res
-              .status(400)
-              .jsonp({ message: "Username or password is incorrect!" })
+  loginHandler: (db, req, res) => {
+    const { username, email, password } = req.body;
+
+    const user = db
+      .get("users")
+      .find(
+        (user) =>
+          (user.username === username || user.email === email) &&
+          user.password === password
       )
-      .catch((err) => next(err));
+      .value();
+
+    if (user) {
+      const token = generateJwtToken(user.id);
+      const { password, ...userWithoutPassword } = user;
+
+      res.jsonp({
+        ...userWithoutPassword,
+        token,
+      });
+    } else {
+      res.status(400).jsonp({ message: "Username or password is incorrect!" });
+    }
   },
 
   registerHandler: (db, req, res) => {
+    const { username, email, password } = req.body;
+
+    if (!password && (!email || !username)) {
+      res.status(400).jsonp({ message: "Please input all required fields!" });
+      return;
+    }
+
+    const existUsername = db
+      .get("users")
+      .find((user) => user.username === username)
+      .value();
+
+    if (existUsername) {
+      res.status(400).jsonp({
+        message:
+          "The username already exists. Please use a different username!",
+      });
+      return;
+    }
+
+    const existEmail = db
+      .get("users")
+      .find((user) => user.email === email)
+      .value();
+
+    if (existEmail) {
+      res.status(400).jsonp({
+        message:
+          "The email address is already being used! Please use a different email!",
+      });
+      return;
+    }
+
     const lastUser = db.get("users").maxBy("id").value();
     const newUserId = parseInt(lastUser.id) + 1;
     const newUser = { id: newUserId, ...req.body };
@@ -58,7 +94,9 @@ module.exports = {
 
   uploadFileHandler: (req, res) => {
     if (req.headers["content-type"] === "application/json") {
-      responseBadRequest(res);
+      res
+        .status(400)
+        .jsonp({ message: 'Content-Type "application/json" is not allowed.' });
       return;
     }
 
@@ -68,7 +106,7 @@ module.exports = {
       let file = files.file;
 
       if (err || !file) {
-        responseBadRequest(res);
+        res.status(400).jsonp({ message: 'Missing "file" field.' });
         return;
       }
 
@@ -77,14 +115,16 @@ module.exports = {
         res.jsonp(file);
       } catch (err) {
         console.log(err);
-        responseServerError(res);
+        res.status(500).jsonp({ message: "Cannot upload file." });
       }
     });
   },
 
   uploadFilesHandler: (req, res) => {
     if (req.headers["content-type"] === "application/json") {
-      responseBadRequest(res);
+      res
+        .status(400)
+        .jsonp({ message: 'Content-Type "application/json" is not allowed.' });
       return;
     }
 
@@ -94,7 +134,7 @@ module.exports = {
       let filesUploaded = files.files;
 
       if (err || !filesUploaded) {
-        responseBadRequest(res);
+        res.status(400).jsonp({ message: 'Missing "files" field.' });
         return;
       }
 
@@ -117,7 +157,7 @@ module.exports = {
         res.jsonp(filesUploaded);
       } catch (err) {
         console.log(err);
-        responseServerError(res);
+        res.status(500).jsonp({ message: "Cannot upload files." });
       }
     });
   },

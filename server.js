@@ -47,7 +47,9 @@ server.post("/register", (req, res) => {
 });
 
 // Login in request
-server.post("/login", loginHandler);
+server.post("/login", (req, res) => {
+  loginHandler(db, req, res);
+});
 
 // Upload 1 file
 server.post("/upload-file", uploadFileHandler);
