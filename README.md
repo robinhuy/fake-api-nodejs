@@ -114,3 +114,39 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
 If you want to change logic of authentication or add more feature, please edit file `server.js` or `additional_routes.js`.
+
+## Default Endpoints
+
+View and modify resources in `database.json`.
+
+### Open Endpoints
+
+Open endpoints require no Authentication.
+
+#### User
+
+Login: POST /login/
+Register: POST /register/
+
+#### Product
+
+Get products: GET /products/
+Get product by ID: GET /products/:id
+
+### Private Endpoints (require Authentication)
+
+Private endpoints require a valid Token to be included in the header of the request. A Token can be acquired from the Login view above.
+
+#### User
+
+Get users: GET /users/
+Get user by ID: GET /users/:id
+Create user: POST /users/
+Update user (entire information): PUT /users/:id
+Update user (partial information) PATCH /users/:id
+
+#### Product
+
+Create product: POST /products/
+Update product (entire information): PUT /products/:id
+Update product (partial information) PATCH /products/:id
