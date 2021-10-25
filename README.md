@@ -125,13 +125,21 @@ Open endpoints require no Authentication.
 
 #### User
 
-Login: POST /login/
-Register: POST /register/
+- Login: POST /login
+
+- Register: POST /register
 
 #### Product
 
-Get products: GET /products/
-Get product by ID: GET /products/:id
+- Get products: GET /products
+
+- Get product by ID: GET /products/:id
+
+#### Media
+
+- Upload single file: POST /upload-file
+
+- Upload multiple files: POST /upload-files
 
 ### Private Endpoints (require Authentication)
 
@@ -139,14 +147,20 @@ Private endpoints require a valid Token to be included in the header of the requ
 
 #### User
 
-Get users: GET /users/
-Get user by ID: GET /users/:id
-Create user: POST /users/
-Update user (entire information): PUT /users/:id
-Update user (partial information) PATCH /users/:id
+- Get users: GET /users
+
+- Get user by ID: GET /users/:id
+
+- Create user: POST /users
+
+- Update user (entire information): PUT /users/:id
+
+- Update user (partial information) PATCH /users/:id
 
 #### Product
 
-Create product: POST /products/
-Update product (entire information): PUT /products/:id
-Update product (partial information) PATCH /products/:id
+- Create product: POST /products
+
+- Update product (entire information): PUT /products/:id
+
+- Update product (partial information) PATCH /products/:id
