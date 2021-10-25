@@ -1,23 +1,23 @@
-const jwt = require("jsonwebtoken");
-const { jwtSecret, jwtTokenexpiresInMinutes } = require("./config.json");
+const jwt = require('jsonwebtoken');
+const {jwtSecret, jwtTokenexpiresInMinutes} = require('./config.json');
 
 function generateJwtToken(userId) {
-  return jwt.sign({ sub: userId }, jwtSecret, {
-    expiresIn: jwtTokenexpiresInMinutes + "m",
+  return jwt.sign({sub: userId}, jwtSecret, {
+    expiresIn: jwtTokenexpiresInMinutes + 'm',
   });
 }
 
 function isAuthenticated(req) {
-  let token, decoded;
+  let token = '';
   if (
     req.headers.authorization &&
-    req.headers.authorization.split(" ")[0] === "Bearer"
+    req.headers.authorization.split(' ')[0] === 'Bearer'
   ) {
-    token = req.headers.authorization.split(" ")[1];
+    token = req.headers.authorization.split(' ')[1];
   }
 
   try {
-    decoded = jwt.verify(token, jwtSecret);
+    jwt.verify(token, jwtSecret);
   } catch (err) {
     return false;
   }
