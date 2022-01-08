@@ -1,7 +1,30 @@
 {
   "protected_resources": {
-    "users": ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    "products": ["POST", "PUT", "PATCH", "DELETE"]
+    "users": [
+      "GET",
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE"
+    ],
+    "productsMen": [
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE"
+    ],
+    "productsWomen": [
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE"
+    ],
+    "productsArmy": [
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE"
+    ]
   },
   "users": [
     {
@@ -155,106 +178,336 @@
       "modifiedAt": 1616246055000
     }
   ],
-  "products": [
+  "productsMen": [
     {
       "id": 1,
-      "name": "Pork Salted Bellies",
+      "name": "Jacket",
       "price": 442,
       "quantity": 16,
-      "thumbnail": "http://dummyimage.com/213x100.png/dddddd/000000",
-      "status": true,
-      "createdAt": 1610632995000,
-      "modifiedAt": 1615620960000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/0A/43/40d12a71-9280-47ae-bd85-51085080f448.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 2,
       "name": "Grapes - Black",
       "price": 893,
       "quantity": 22,
-      "thumbnail": "http://dummyimage.com/151x100.png/ff4444/ffffff",
-      "status": false,
-      "createdAt": 1615796160000,
-      "modifiedAt": 1615796160000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/F7/D7/69afef92-d8e0-4f04-b1bd-e5e49e0fa4ca.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 3,
       "name": "Nantucket - 518ml",
       "price": 693,
       "quantity": 41,
-      "thumbnail": "http://dummyimage.com/125x100.png/dddddd/000000",
-      "status": false,
-      "createdAt": 1614190320000,
-      "modifiedAt": 1614190320000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/E6/B5/440aada6-da00-4f8c-85a1-3198b2ad00a8.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 4,
       "name": "Onions - White",
       "price": 472,
       "quantity": 67,
-      "thumbnail": "http://dummyimage.com/117x100.png/cc0000/ffffff",
-      "status": false,
-      "createdAt": 1609751340000,
-      "modifiedAt": 1617525900000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/0F/E3/be706c8a-0c06-4c38-a45b-1531b336925d.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 5,
       "name": "Lamb - Whole, Fresh",
       "price": 157,
       "quantity": 83,
-      "thumbnail": "http://dummyimage.com/160x100.png/dddddd/000000",
-      "status": true,
-      "createdAt": 1620154080000,
-      "modifiedAt": 1620154080000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/97/40/ecad07fb-64bf-4233-92c3-4fca4219f376.jpg",
+      "type": "Men",
+      "status": true
     },
     {
       "id": 6,
       "name": "Carrots - Purple, Organic",
       "price": 816,
       "quantity": 37,
-      "thumbnail": "http://dummyimage.com/241x100.png/5fa2dd/ffffff",
-      "status": false,
-      "createdAt": 1619270940000,
-      "modifiedAt": 1619443380000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/A1/D4/515c93f5-dd79-41c3-be45-4c9b7df9df0e.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 7,
       "name": "Bag - Regular Kraft 20 Lb",
       "price": 157,
       "quantity": 60,
-      "thumbnail": "http://dummyimage.com/156x100.png/cc0000/ffffff",
-      "status": false,
-      "createdAt": 1614098400000,
-      "modifiedAt": "2021-04-16"
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/27/66/a2f93c80-8b90-4933-a3e9-90d65f48a4c4.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 8,
       "name": "Flour - Bran, Red",
       "price": 970,
       "quantity": 40,
-      "thumbnail": "http://dummyimage.com/157x100.png/5fa2dd/ffffff",
-      "status": false,
-      "createdAt": 1617954000000,
-      "modifiedAt": 1619964420000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/4F/1A/28bb7786-b515-414e-b962-a560745cadbb.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 9,
       "name": "Bread - Bistro Sour",
       "price": 112,
       "quantity": 77,
-      "thumbnail": "http://dummyimage.com/147x100.png/dddddd/000000",
-      "status": false,
-      "createdAt": 1612357500000,
-      "modifiedAt": 1614956760000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/70/36/df8a4590-b31c-4010-8650-77bac6e9892e.jpg?s=702x936",
+      "type": "Men",
+      "status": false
     },
     {
       "id": 10,
       "name": "Soup - Campbells Bean Medley",
       "price": 353,
       "quantity": 40,
-      "thumbnail": "http://dummyimage.com/203x100.png/ff4444/ffffff",
-      "status": false,
-      "createdAt": 1615146960000,
-      "modifiedAt": 1615146960000
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/92/2E/ee9a95a1-e0c0-4b1b-9831-132dc1d04e70.jpg",
+      "type": "Men",
+      "status": false
+    }
+  ],
+  "productsWomen": [
+    {
+      "id": 1,
+      "name": "Jacket",
+      "price": 442,
+      "quantity": 16,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/88/40/df85cd5d-c591-4c9e-8c16-407d854f8d58.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 2,
+      "name": "Grapes - Black",
+      "price": 893,
+      "quantity": 22,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/82/4D/867ec0db-8028-491e-bf26-9829d5c99b1b.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 3,
+      "name": "Nantucket - 518ml",
+      "price": 693,
+      "quantity": 41,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/C4/A5/c7303096-3460-43f5-aa6e-2f943cbb9d81.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 4,
+      "name": "Onions - White",
+      "price": 472,
+      "quantity": 67,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/9C/6C/98b59ac5-eac1-4d6d-88df-780393858b5b.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 5,
+      "name": "Lamb - Whole, Fresh",
+      "price": 157,
+      "quantity": 83,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/C9/CF/037062ae-a317-4f59-b755-14e479615c88.jpg?s=702x936",
+      "type": "Women",
+      "status": true
+    },
+    {
+      "id": 6,
+      "name": "Carrots - Purple, Organic",
+      "price": 816,
+      "quantity": 37,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/5A/81/f0058659-d452-4b43-8194-0b67578342dd.jpg",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 7,
+      "name": "Bag - Regular Kraft 20 Lb",
+      "price": 157,
+      "quantity": 60,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/B5/8D/dbe0b86b-9b7e-4045-8648-145c9c98c9fd.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 8,
+      "name": "Flour - Bran, Red",
+      "price": 970,
+      "quantity": 40,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/1C/00/763e0e54-54aa-48f0-a660-cce2285623e7.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 9,
+      "name": "Bread - Bistro Sour",
+      "price": 112,
+      "quantity": 77,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/F3/AE/3be55900-58e2-4f42-ad21-f0989e2b19b2.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    },
+    {
+      "id": 10,
+      "name": "Soup - Campbells Bean Medley",
+      "price": 353,
+      "quantity": 40,
+      "image": "https://imgaz1.chiccdn.com/thumb/large/oaupload/newchic/images/28/A4/abe0eb67-cad8-4acc-96bd-0ca0aec02156.jpg?s=702x936",
+      "type": "Women",
+      "status": false
+    }
+  ],
+  "productsArmy": [
+    {
+      "id": 1,
+      "name": "Jacket",
+      "price": 442,
+      "quantity": 16,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/mega/brandit-us-assault-rygsaek-medium_8007-701.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 2,
+      "name": "Grapes - Black",
+      "price": 893,
+      "quantity": 22,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/rothco-haettetroeje-thin-blue-line_520785xl1.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 3,
+      "name": "Nantucket - 518ml",
+      "price": 693,
+      "quantity": 41,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/british-bomber-jakke-i-faareskind-raf-model_10451009s1.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 4,
+      "name": "Onions - White",
+      "price": 472,
+      "quantity": 67,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/rothco-ma-1-bomber-jakke-m-patches_7240xs1.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 5,
+      "name": "Lamb - Whole, Fresh",
+      "price": 157,
+      "quantity": 83,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/brandit-windbreaker-anorak_3001-153xl1_1.jpg",
+      "type": "Army",
+      "status": true
+    },
+    {
+      "id": 6,
+      "name": "Carrots ",
+      "price": 816,
+      "quantity": 37,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/rothco-ma-1-bomber-jakke-pilot-jakke_74743xl1.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 7,
+      "name": "Bag - Regular Kraft 20 Lb",
+      "price": 157,
+      "quantity": 60,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/rothco-v-max-taktisk-letvaegts-stoevle_5366141.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 8,
+      "name": "Flour - Bran, Red",
+      "price": 970,
+      "quantity": 40,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/brandit-militaer-stoevler_9038-239eu002f5uk1_1.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 9,
+      "name": "Bread - Bistro Sour",
+      "price": 112,
+      "quantity": 77,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/9048-70_39EU%c2%a4002F5UK_1_1.jpg",
+      "type": "Army",
+      "status": false
+    },
+    {
+      "id": 10,
+      "name": "Soup ",
+      "price": 353,
+      "quantity": 40,
+      "image": "https://www.fotoagent.dk/single_picture/12441/138/large/9048-1_39EU%c2%a4002F5UK_1_1.jpg",
+      "type": "Army",
+      "status": false
+    }
+  ],
+  
+  "cart": [
+    {
+      "title": "long",
+      "createdAt": 1641558081485,
+      "modifiedAt": 1641558081485,
+      "id": 1
+    },
+    {
+      "Product Name": "Jacket",
+      "Price": 442,
+      "createdAt": 1641561665402,
+      "modifiedAt": 1641561665402,
+      "id": 2
+    },
+    {
+      "Product Name": "Grapes - Black",
+      "Price": 893,
+      "createdAt": 1641561709564,
+      "modifiedAt": 1641561709564,
+      "id": 3
+    },
+    {
+      "Product Name": "Jacket",
+      "Price": 442,
+      "createdAt": 1641561859492,
+      "modifiedAt": 1641561859492,
+      "id": 4
+    },
+    {
+      "Product Name": "Nantucket - 518ml",
+      "Price": 693,
+      "createdAt": 1641562379836,
+      "modifiedAt": 1641562379836,
+      "id": 5
+    }
+  ],
+  "laydanhsach": [
+    {
+      "message": true,
+      "data": [
+        {
+          "id": 1,
+          "maSP": "49FQM7Pl6v",
+          "tenSP": "Dâu tây",
+          "gia": 10,
+          "soLuongTK": 30,
+          "loaiSP": 1,
+          "donViTinh": "Kg",
+          "anhMinhHoa": "product-img-1.jpg",
+          "HDNhapId": 1,
+          "trangThai": 1
+        }
+      ]
     }
   ]
 }
