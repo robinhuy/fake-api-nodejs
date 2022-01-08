@@ -24,6 +24,12 @@
       "PUT",
       "PATCH",
       "DELETE"
+    ],
+    "cart": [
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE"
     ]
   },
   "users": [
@@ -456,40 +462,7 @@
   ],
   
   "cart": [
-    {
-      "title": "long",
-      "createdAt": 1641558081485,
-      "modifiedAt": 1641558081485,
-      "id": 1
-    },
-    {
-      "Product Name": "Jacket",
-      "Price": 442,
-      "createdAt": 1641561665402,
-      "modifiedAt": 1641561665402,
-      "id": 2
-    },
-    {
-      "Product Name": "Grapes - Black",
-      "Price": 893,
-      "createdAt": 1641561709564,
-      "modifiedAt": 1641561709564,
-      "id": 3
-    },
-    {
-      "Product Name": "Jacket",
-      "Price": 442,
-      "createdAt": 1641561859492,
-      "modifiedAt": 1641561859492,
-      "id": 4
-    },
-    {
-      "Product Name": "Nantucket - 518ml",
-      "Price": 693,
-      "createdAt": 1641562379836,
-      "modifiedAt": 1641562379836,
-      "id": 5
-    }
+    
   ],
   "laydanhsach": [
     {
