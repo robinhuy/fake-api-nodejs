@@ -1,6 +1,8 @@
 {
   "defaultPort": 3000,
   "databaseFile": "database.json",
-  "jwtSecret": "robin_huy",
-  "jwtTokenexpiresInMinutes": "10"
+  "accessTokenSecret": "accessToken",
+  "accessTokenExpiresInMinutes": "15",
+  "refreshTokenSecret": "refreshToken",
+  "refreshTokenExpiresInMinutes": "10080"
 }

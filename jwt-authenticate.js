@@ -1,23 +1,38 @@
-const jwt = require('jsonwebtoken');
-const {jwtSecret, jwtTokenexpiresInMinutes} = require('./config.json');
+const jwt = require("jsonwebtoken");
+const {
+  accessTokenSecret,
+  accessTokenExpiresInMinutes,
+  refreshTokenSecret,
+  refreshTokenExpiresInMinutes,
+} = require("./config.json");
 
-function generateJwtToken(userId) {
-  return jwt.sign({sub: userId}, jwtSecret, {
-    expiresIn: jwtTokenexpiresInMinutes + 'm',
+function generateAccessToken(userId) {
+  return jwt.sign({ sub: userId }, accessTokenSecret, {
+    expiresIn: accessTokenExpiresInMinutes + "m",
   });
 }
 
+function generateRefreshToken(userId) {
+  return jwt.sign({ sub: userId }, refreshTokenSecret, {
+    expiresIn: refreshTokenExpiresInMinutes + "m",
+  });
+}
+
+function decodeRefreshToken(token) {
+  return jwt.verify(token, refreshTokenSecret);
+}
+
 function isAuthenticated(req) {
-  let token = '';
+  let token = "";
   if (
     req.headers.authorization &&
-    req.headers.authorization.split(' ')[0] === 'Bearer'
+    req.headers.authorization.split(" ")[0] === "Bearer"
   ) {
-    token = req.headers.authorization.split(' ')[1];
+    token = req.headers.authorization.split(" ")[1];
   }
 
   try {
-    jwt.verify(token, jwtSecret);
+    jwt.verify(token, accessTokenSecret);
   } catch (err) {
     return false;
   }
@@ -26,6 +41,8 @@ function isAuthenticated(req) {
 }
 
 module.exports = {
-  generateJwtToken,
+  generateAccessToken,
+  generateRefreshToken,
+  decodeRefreshToken,
   isAuthenticated,
 };

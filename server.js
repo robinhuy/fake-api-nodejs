@@ -1,15 +1,13 @@
-const { format } = require("date-fns");
-
 const jsonServer = require("json-server");
 const { isAuthenticated } = require("./jwt-authenticate");
 const {
   loginHandler,
+  renewTokenHandler,
   uploadFileHandler,
   uploadFilesHandler,
-  uploadImageHandler,
   registerHandler,
 } = require("./additional_routes");
-const { defaultPort, databaseFile, jwtSecret } = require("./config.json");
+const { defaultPort, databaseFile } = require("./config.json");
 
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
@@ -46,9 +44,14 @@ server.post("/register", (req, res) => {
   registerHandler(db, req, res);
 });
 
-// Login in request
+// Login request
 server.post("/login", (req, res) => {
   loginHandler(db, req, res);
+});
+
+// Renew Token request
+server.post("/renew-token", (req, res) => {
+  renewTokenHandler(req, res);
 });
 
 // Upload 1 file

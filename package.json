@@ -1,6 +1,6 @@
 {
   "name": "fake-rest-api-nodejs",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Fake REST API using NodeJS + JSON Server",
   "main": "server.js",
   "scripts": {
@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/robinhuy/fake-rest-api-nodejs#readme",
   "dependencies": {
-    "date-fns": "^2.28.0",
     "formidable": "^2.0.1",
     "json-server": "^0.16.1",
     "jsonwebtoken": "^8.5.1",

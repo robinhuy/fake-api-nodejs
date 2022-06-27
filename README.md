@@ -103,6 +103,14 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
   }
   ```
 
+- To renew AccessToken, using endpoint `/renew-token`, method `POST`, request type `application/json`. Body request like this:
+
+  ```json
+  {
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo",
+  }
+  ```
+
 - To upload single file, using endpoint `/upload-file`, method `POST`, request type `form-data`, field `file`. Uploaded file stored in `/public/uploads/`.
 
 - To upload multiple files, using endpoint `/upload-files`, method `POST`, request type `form-data`, field `files`. Uploaded files stored in `/public/uploads/`.

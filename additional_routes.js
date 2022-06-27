@@ -1,6 +1,10 @@
 const formidable = require("formidable");
 const { copyFile, unlink } = require("fs/promises");
-const { generateJwtToken } = require("./jwt-authenticate");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  decodeRefreshToken,
+} = require("./jwt-authenticate");
 
 const handleUploadFile = async (req, file) => {
   const uploadFolder = "uploads";
@@ -39,15 +43,36 @@ module.exports = {
       .value();
 
     if (user && user.password === pwd) {
-      const token = generateJwtToken(user.id);
+      const accessToken = generateAccessToken(user.id);
+      const refreshToken = generateRefreshToken(user.id);
       const { password, ...userWithoutPassword } = user;
 
       res.jsonp({
         ...userWithoutPassword,
-        token,
+        accessToken,
+        refreshToken,
       });
     } else {
       res.status(400).jsonp({ message: "Username or password is incorrect!" });
+    }
+  },
+
+  renewTokenHandler: (req, res) => {
+    const { refreshToken } = req.body;
+
+    if (refreshToken) {
+      try {
+        const payload = decodeRefreshToken(refreshToken);
+        const accessToken = generateAccessToken(payload.sub);
+
+        res.jsonp({
+          accessToken,
+        });
+      } catch (error) {
+        res.status(400).jsonp({ error });
+      }
+    } else {
+      res.status(400).jsonp({ message: "Refresh Token is invalid!" });
     }
   },
 
