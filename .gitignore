@@ -1,4 +1,4 @@
-# dependencies
+# Dependencies
 /node_modules
 
 # IDEs and editors
@@ -21,3 +21,6 @@
 # System Files
 .DS_Store
 Thumbs.db
+
+# Upload files
+/public/uploads/*
