@@ -190,4 +190,9 @@ module.exports = {
       }
     });
   },
+
+  socketEmit: (io, req, res) => {
+    io.emit("socket-emit", req.body);
+    res.jsonp({ msg: "Message sent over websocket connection" });
+  },
 };

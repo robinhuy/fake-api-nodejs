@@ -1,4 +1,7 @@
 const jsonServer = require("json-server");
+const http = require("http");
+const { Server } = require("socket.io");
+const socketHandler = require("./server-socket");
 const { isAuthenticated } = require("./jwt-authenticate");
 const {
   loginHandler,
@@ -6,6 +9,7 @@ const {
   uploadFileHandler,
   uploadFilesHandler,
   registerHandler,
+  socketEmit,
 } = require("./additional_routes");
 const { defaultPort, databaseFile } = require("./config.json");
 
@@ -14,19 +18,27 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(databaseFile);
 const db = low(adapter);
 
-const server = jsonServer.create();
+const app = jsonServer.create();
 const router = jsonServer.router(db);
 const middlewares = jsonServer.defaults();
 const port = process.env.PORT || defaultPort;
 
+const server = http.createServer(app);
+
+// Init socket io server
+const io = new Server(server);
+io.on("connection", (socket) => {
+  socketHandler(socket, io);
+});
+
 // Set default middlewares (logger, static, cors and no-cache)
-server.use(middlewares);
+app.use(middlewares);
 
 // Handle POST, PUT and PATCH request
-server.use(jsonServer.bodyParser);
+app.use(jsonServer.bodyParser);
 
 // Save createdAt and updatedAt automatically
-server.use((req, res, next) => {
+app.use((req, res, next) => {
   const currentTime = Date.now();
 
   if (req.method === "POST") {
@@ -39,29 +51,34 @@ server.use((req, res, next) => {
   next();
 });
 
+// Test websocket request
+app.post("/socket-emit", (req, res) => {
+  socketEmit(io, req, res);
+});
+
 // Register request
-server.post("/register", (req, res) => {
+app.post("/register", (req, res) => {
   registerHandler(db, req, res);
 });
 
 // Login request
-server.post("/login", (req, res) => {
+app.post("/login", (req, res) => {
   loginHandler(db, req, res);
 });
 
 // Renew Token request
-server.post("/renew-token", (req, res) => {
+app.post("/renew-token", (req, res) => {
   renewTokenHandler(req, res);
 });
 
 // Upload 1 file
-server.post("/upload-file", uploadFileHandler);
+app.post("/upload-file", uploadFileHandler);
 
 // Upload multiple files
-server.post("/upload-files", uploadFilesHandler);
+app.post("/upload-files", uploadFilesHandler);
 
 // Access control
-server.use((req, res, next) => {
+app.use((req, res, next) => {
   const protectedResources = db.get("protected_resources").value();
   if (!protectedResources) {
     next();
@@ -86,7 +103,7 @@ server.use((req, res, next) => {
 });
 
 // Setup others routes
-server.use(router);
+app.use(router);
 
 // Start server
 server.listen(port, () => {
