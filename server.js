@@ -26,7 +26,9 @@ const port = process.env.PORT || defaultPort;
 const server = http.createServer(app);
 
 // Init socket io server
-const io = new Server(server);
+const io = new Server(server, {
+  cors: { origin: "*" },
+});
 io.on("connection", (socket) => {
   socketHandler(socket, io);
 });
