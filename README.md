@@ -1,10 +1,12 @@
-# Fake REST API NodeJS
+# Fake API NodeJS
 
-Get a full fake REST API as soon as possible. Base on [NodeJS](https://nodejs.org/en/) + [JSON Server](https://github.com/typicode/json-server).
+Get a full fake API as soon as possible. Base on [NodeJS](https://nodejs.org/en/) + [JSON Server](https://github.com/typicode/json-server) + [Socket.IO](https://socket.io/).
 
-Support more features:
+Features:
 
-- Register user with username & password or email & password.
+- Define your own database using a json file, generate REST APIs from that database.
+
+- Register user with username & password or email & password. Using object `users` in the database.
 
 - Login with registered users.
 
@@ -12,14 +14,16 @@ Support more features:
 
 - Upload files.
 
-Preview: [https://fake-rest-api-nodejs.herokuapp.com](https://fake-rest-api-nodejs.herokuapp.com/)
+- Send and receive messages over web socket connection (Socket.IO).
+
+Preview: [https://fake-rest-api-nodejs.herokuapp.com](https://nodejs-fake-api.herokuapp.com/)
 
 ## Getting started
 
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/robinhuy/fake-rest-api-nodejs.git
+git clone https://github.com/robinhuy/fake-api-nodejs.git
 ```
 
 or fork to your account and clone the forked repo
@@ -27,14 +31,14 @@ or fork to your account and clone the forked repo
 ### 2. Install dependencies
 
 ```bash
-cd fake-rest-api-nodejs
+cd fake-api-nodejs
 npm install
 ```
 
 or if you using yarn
 
 ```bash
-cd fake-rest-api-nodejs
+cd fake-api-nodejs
 yarn install
 ```
 
@@ -68,7 +72,7 @@ yarn install
 
 ## Modify your data
 
-All the data was placed in `database.json`. Edit it to suit your purpose.
+All the data was placed in `database.json`. Edit it to suit your purpose but keep object `users` to use authentication feature.
 
 You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and publish your code to [https://heroku.com/](https://heroku.com/) or similar hosting to get a Public API.
 
@@ -107,7 +111,7 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 
   ```json
   {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo"
   }
   ```
 
@@ -121,7 +125,7 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
-If you want to change logic of authentication or add more feature, please edit file `server.js` or `additional_routes.js`.
+If you want to change logic of authentication or add more feature, please edit file `server.js`. Edit `rest-api-handler.js` to add or modify REST APIs, edit `socket-io` to add or modify Socket.IO events.
 
 ## Default Endpoints
 
@@ -172,3 +176,35 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Update product (entire information): PUT /products/:id
 
 - Update product (partial information) PATCH /products/:id
+
+### Web Socket (Socket.IO)
+
+- Event `emit`: Echo message to sender
+
+```js
+socket.emit('emit', 'Hello')
+```
+
+- Event `broadcast`: Broadcast message to all clients in the current namespace except the sender
+
+```js
+socket.emit('broadcast', 'Hello')
+```
+
+- Event `broadcast-all`: Broadcast message to all clients in the current namespace include the sender
+
+```js
+socket.emit('broadcast-all', 'Hello')
+```
+
+- Event `join-room`: Join a room
+
+```js
+socket.emit('join-room', 'game')
+```
+
+- Event `emit-in-room`: Send message to all clients in the room except the sender
+
+```js
+socket.emit('join-room', {room: 'game', event: 'chat', msg: 'Hello'})
+```

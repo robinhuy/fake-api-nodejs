@@ -1,8 +1,7 @@
 const jsonServer = require("json-server");
 const http = require("http");
 const { Server } = require("socket.io");
-const socketHandler = require("./server-socket");
-const { isAuthenticated } = require("./jwt-authenticate");
+const socketHandler = require("./socket-io");
 const {
   loginHandler,
   renewTokenHandler,
@@ -10,8 +9,9 @@ const {
   uploadFilesHandler,
   registerHandler,
   socketEmit,
-} = require("./additional_routes");
+} = require("./rest-api-handler");
 const { defaultPort, databaseFile } = require("./config.json");
+const { isAuthenticated } = require("./jwt-authenticate");
 
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
