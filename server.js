@@ -1,7 +1,9 @@
 const jsonServer = require("json-server");
 const http = require("http");
+const { graphqlHTTP } = require("express-graphql");
+const { schema, rootValue } = require("./src/graphql");
 const { Server } = require("socket.io");
-const socketHandler = require("./socket-io");
+const socketHandler = require("./src/socket-io");
 const {
   loginHandler,
   renewTokenHandler,
@@ -9,7 +11,7 @@ const {
   uploadFilesHandler,
   registerHandler,
   socketEmit,
-} = require("./rest-api-handler");
+} = require("./src/rest");
 const { defaultPort, databaseFile } = require("./config.json");
 const { isAuthenticated } = require("./jwt-authenticate");
 
@@ -33,6 +35,9 @@ io.on("connection", (socket) => {
   socketHandler(socket, io);
 });
 
+// Init graphql
+app.use("/graphql", graphqlHTTP({ schema, rootValue, graphiql: true }));
+
 // Set default middlewares (logger, static, cors and no-cache)
 app.use(middlewares);
 
@@ -53,7 +58,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Test websocket request
+// Test web socket request
 app.post("/socket-emit", (req, res) => {
   socketEmit(io, req, res);
 });

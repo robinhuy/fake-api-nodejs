@@ -125,7 +125,7 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
-If you want to change logic of authentication or add more feature, please edit file `server.js`. Edit `rest-api-handler.js` to add or modify REST APIs, edit `socket-io` to add or modify Socket.IO events.
+If you want to change logic of authentication or add more feature, please edit file `server.js`. Edit `src/rest.js` to add or modify REST APIs, edit `src/socket-io` to add or modify Socket.IO events.
 
 ## Default Endpoints
 

@@ -4,7 +4,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
   decodeRefreshToken,
-} = require("./jwt-authenticate");
+} = require("../jwt-authenticate");
 
 const handleUploadFile = async (req, file) => {
   const uploadFolder = "uploads";
