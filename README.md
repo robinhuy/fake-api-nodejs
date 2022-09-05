@@ -127,7 +127,7 @@ Please view detailed document in [https://github.com/typicode/json-server/blob/m
 
 If you want to change logic of authentication or add more custom REST endpoints, please edit file `server.js` and `src/rest.js`. 
 
-Edit `src/socket-io.js` to add or modify Socket.IO events, `src/graphql.js` to add or modify GraphQL query/mutation (Socket.IO & GraphQL endpoints currently are not applied authentication).
+Edit `src/socket-io.js` to add or modify Socket.IO events, `src/graphql.js` to add or modify GraphQL query/mutation (currently, authentication aren't being applied to Socket.IO & GraphQl endpoints).
 
 ## Default Endpoints
 
@@ -135,7 +135,7 @@ View and modify resources in `database.json`.
 
 ### Open Endpoints
 
-Open endpoints require no Authentication.
+Open endpoints do not require Authentication.
 
 #### User
 
@@ -183,78 +183,92 @@ Private endpoints require a valid Token to be included in the header of the requ
 
 - Event `emit`: Echo message to sender
 
-```js
-socket.emit('emit', 'Hello')
-```
+  ```js
+  socket.emit('emit', 'Hello')
+  ```
 
 - Event `broadcast`: Broadcast message to all clients in the current namespace except the sender
 
-```js
-socket.emit('broadcast', 'Hello')
-```
+  ```js
+  socket.emit('broadcast', 'Hello')
+  ```
 
 - Event `broadcast-all`: Broadcast message to all clients in the current namespace include the sender
 
-```js
-socket.emit('broadcast-all', 'Hello')
-```
+  ```js
+  socket.emit('broadcast-all', 'Hello')
+  ```
 
 - Event `join-room`: Join a room
 
-```js
-socket.emit('join-room', 'game')
-```
+  ```js
+  socket.emit('join-room', 'game')
+  ```
 
 - Event `emit-in-room`: Send message to all clients in the room except the sender
 
-```js
-socket.emit('join-room', {room: 'game', event: 'chat', msg: 'Hello'})
-```
+  ```js
+  socket.emit('join-room', {room: 'game', event: 'chat', msg: 'Hello'})
+  ```
 
 ### GraphQL
 
-- Get all objects by name (objects declared in database.json)
+- Endpoint: `/graphql`.
 
-```gql
-query getData($objectName: String!) {
-  getObjects(objectName: $objectName)
-}
-```
+- Get objects by name (objects declared in database.json)
 
-Query variables:
-
-```json
-{
-  "objectName": "products"
-}
-```
-
-- Get object by name, search by property
-
-```gql
-query getData($objectName: String!, $objectKey: String!, $objectValue: ObjectValue) {
-  getObjectByKey(objectName: $objectName, objectKey: $objectKey, objectValue: $objectValue)
-}
-```
-
-Query variables:
-
-```json
-{
-  "objectName": "products",
-  "objectKey": "id",
-  "objectValue": {
-    "int": 1
+  ```gql
+  query getData($objectName: String!) {
+    getObjects(objectName: $objectName)
   }
-}
-```
+  ```
 
-```json
-{
-  "objectName": "products",
-  "objectKey": "name",
-  "objectValue": {
-    "string": "Grapes - Black"
+  Query variables:
+
+  ```json
+  {
+    "objectName": "products"
   }
-}
-```
+  ```
+
+- Get an object by name, search by property
+
+  ```gql
+  query getData($objectName: String!, $objectKey: String!, $objectValue: ObjectValue) {
+    getObjectByKey(objectName: $objectName, objectKey: $objectKey, objectValue: $objectValue)
+  }
+  ```
+
+  ObjectValue must specify the data type: 
+  ```gql
+  ObjectValue {
+    int: Int
+    float: Float
+    string: String
+    boolean: Boolean
+  }
+  ```
+
+  Query variable examples:
+
+  ```json
+  {
+    "objectName": "products",
+    "objectKey": "id",
+    "objectValue": {
+      "int": 1
+    }
+  }
+  ```
+
+  ```json
+  {
+    "objectName": "products",
+    "objectKey": "name",
+    "objectValue": {
+      "string": "Grapes - Black"
+    }
+  }
+  ```
+
+  ...
