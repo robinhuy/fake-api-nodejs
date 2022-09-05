@@ -16,7 +16,7 @@ Features:
 
 - Send and receive messages over web socket connection (Socket.IO).
 
-Preview: [https://fake-rest-api-nodejs.herokuapp.com](https://nodejs-fake-api.herokuapp.com/)
+Preview: [https://nodejs-fake-api.herokuapp.com](https://nodejs-fake-api.herokuapp.com/)
 
 ## Getting started
 
@@ -125,7 +125,9 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
-If you want to change logic of authentication or add more feature, please edit file `server.js`. Edit `src/rest.js` to add or modify REST APIs, edit `src/socket-io` to add or modify Socket.IO events.
+If you want to change logic of authentication or add more custom REST endpoints, please edit file `server.js` and `src/rest.js`. 
+
+Edit `src/socket-io.js` to add or modify Socket.IO events, `src/graphql.js` to add or modify GraphQL query/mutation (Socket.IO & GraphQL endpoints currently are not applied authentication).
 
 ## Default Endpoints
 
@@ -207,4 +209,52 @@ socket.emit('join-room', 'game')
 
 ```js
 socket.emit('join-room', {room: 'game', event: 'chat', msg: 'Hello'})
+```
+
+### GraphQL
+
+- Get all objects by name (objects declared in database.json)
+
+```gql
+query getData($objectName: String!) {
+  getObjects(objectName: $objectName)
+}
+```
+
+Query variables:
+
+```json
+{
+  "objectName": "products"
+}
+```
+
+- Get object by name, search by property
+
+```gql
+query getData($objectName: String!, $objectKey: String!, $objectValue: ObjectValue) {
+  getObjectByKey(objectName: $objectName, objectKey: $objectKey, objectValue: $objectValue)
+}
+```
+
+Query variables:
+
+```json
+{
+  "objectName": "products",
+  "objectKey": "id",
+  "objectValue": {
+    "int": 1
+  }
+}
+```
+
+```json
+{
+  "objectName": "products",
+  "objectKey": "name",
+  "objectValue": {
+    "string": "Grapes - Black"
+  }
+}
 ```

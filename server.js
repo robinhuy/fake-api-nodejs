@@ -1,7 +1,7 @@
 const jsonServer = require("json-server");
 const http = require("http");
 const { graphqlHTTP } = require("express-graphql");
-const { schema } = require("./src/graphql");
+const { schema, setupRootValue } = require("./src/graphql");
 const { Server } = require("socket.io");
 const socketHandler = require("./src/socket-io");
 const {
@@ -36,28 +36,9 @@ io.on("connection", (socket) => {
 });
 
 // Init graphql
-const rootValue = {
-  getObjects: ({ objectName }) => {
-    const obj = db.get(objectName).value();
-    return obj;
-  },
-  getObjectByKey: ({ objectName, objectKey, objectValue }) => {
-    const obj = db
-      .get(objectName)
-      .find(
-        (o) =>
-          o[objectKey] === objectValue.int ??
-          objectValue.float ??
-          objectValue.string ??
-          objectValue.boolean
-      )
-      .value();
-    return obj;
-  },
-};
 app.use(
   "/graphql",
-  graphqlHTTP({ schema, rootValue: rootValue, graphiql: true })
+  graphqlHTTP({ schema, rootValue: setupRootValue(db), graphiql: true })
 );
 
 // Set default middlewares (logger, static, cors and no-cache)

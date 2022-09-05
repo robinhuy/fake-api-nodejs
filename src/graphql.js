@@ -1,33 +1,5 @@
-const { buildSchema, GraphQLScalarType } = require("graphql");
-
-const ObjectScalarType = new GraphQLScalarType({
-  name: "Object",
-  description: "Arbitrary object",
-  parseValue: (value) => {
-    return typeof value === "object"
-      ? value
-      : typeof value === "string"
-      ? JSON.parse(value)
-      : null;
-  },
-  serialize: (value) => {
-    return typeof value === "object"
-      ? value
-      : typeof value === "string"
-      ? JSON.parse(value)
-      : null;
-  },
-  parseLiteral: (ast) => {
-    switch (ast.kind) {
-      case Kind.STRING:
-        return JSON.parse(ast.value);
-      case Kind.OBJECT:
-        throw new Error(`Not sure what to do with OBJECT for ObjectScalarType`);
-      default:
-        return null;
-    }
-  },
-});
+const { buildSchema } = require("graphql");
+const { ObjectScalarType } = require("../utils/graphql-scalar-type");
 
 const schema = buildSchema(`
   scalar ObjectScalarType
@@ -45,6 +17,31 @@ const schema = buildSchema(`
   }
 `);
 
+const setupRootValue = (db) => {
+  return {
+    getObjects: ({ objectName }) => {
+      const obj = db.get(objectName).value();
+      return obj;
+    },
+    getObjectByKey: ({ objectName, objectKey, objectValue }) => {
+      const obj = db
+        .get(objectName)
+        .find((o) => {
+          return (
+            o[objectKey] ===
+            (objectValue.int ??
+              objectValue.float ??
+              objectValue.string ??
+              objectValue.boolean)
+          );
+        })
+        .value();
+      return obj;
+    },
+  };
+};
+
 module.exports = {
   schema,
+  setupRootValue,
 };
