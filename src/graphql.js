@@ -1,28 +1,50 @@
-const { buildSchema } = require("graphql");
+const { buildSchema, GraphQLScalarType } = require("graphql");
+
+const ObjectScalarType = new GraphQLScalarType({
+  name: "Object",
+  description: "Arbitrary object",
+  parseValue: (value) => {
+    return typeof value === "object"
+      ? value
+      : typeof value === "string"
+      ? JSON.parse(value)
+      : null;
+  },
+  serialize: (value) => {
+    return typeof value === "object"
+      ? value
+      : typeof value === "string"
+      ? JSON.parse(value)
+      : null;
+  },
+  parseLiteral: (ast) => {
+    switch (ast.kind) {
+      case Kind.STRING:
+        return JSON.parse(ast.value);
+      case Kind.OBJECT:
+        throw new Error(`Not sure what to do with OBJECT for ObjectScalarType`);
+      default:
+        return null;
+    }
+  },
+});
 
 const schema = buildSchema(`
+  scalar ObjectScalarType
+
+  input ObjectValue {
+    int: Int
+    float: Float
+    string: String
+    boolean: Boolean
+  }
+
   type Query {
-    rollDice(numDice: Int!, numSides: Int): [Int]
+    getObjects(objectName: String!): [ObjectScalarType]
+    getObjectByKey(objectName: String!, objectKey: String!, objectValue: ObjectValue): ObjectScalarType
   }
 `);
 
-const rootValue = {
-  quoteOfTheDay: () => {
-    return Math.random() < 0.5 ? "Take it easy" : "Salvation lies within";
-  },
-  random: () => {
-    return Math.random();
-  },
-  rollDice: ({ numDice, numSides }) => {
-    var output = [];
-    for (var i = 0; i < numDice; i++) {
-      output.push(1 + Math.floor(Math.random() * (numSides || 6)));
-    }
-    return output;
-  },
-};
-
 module.exports = {
   schema,
-  rootValue,
 };
