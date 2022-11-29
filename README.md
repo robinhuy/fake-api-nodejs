@@ -125,7 +125,7 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
-If you want to change logic of authentication or add more custom REST endpoints, please edit file `server.js` and `src/rest.js`. 
+If you want to change logic of authentication or add more custom REST endpoints, please edit file `server.js` and `src/rest.js`.
 
 Edit `src/socket-io.js` to add or modify Socket.IO events, `src/graphql.js` to add or modify GraphQL query/mutation (currently, authentication aren't being applied to Socket.IO & GraphQl endpoints).
 
@@ -184,31 +184,31 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Event `emit`: Echo message to sender
 
   ```js
-  socket.emit('emit', 'Hello')
+  socket.emit("emit", "Hello");
   ```
 
 - Event `broadcast`: Broadcast message to all clients in the current namespace except the sender
 
   ```js
-  socket.emit('broadcast', 'Hello')
+  socket.emit("broadcast", "Hello");
   ```
 
 - Event `broadcast-all`: Broadcast message to all clients in the current namespace include the sender
 
   ```js
-  socket.emit('broadcast-all', 'Hello')
+  socket.emit("broadcast-all", "Hello");
   ```
 
 - Event `join-room`: Join a room
 
   ```js
-  socket.emit('join-room', 'game')
+  socket.emit("join-room", "game");
   ```
 
 - Event `emit-in-room`: Send message to all clients in the room except the sender
 
   ```js
-  socket.emit('join-room', {room: 'game', event: 'chat', msg: 'Hello'})
+  socket.emit("join-room", { room: "game", event: "chat", msg: "Hello" });
   ```
 
 ### GraphQL
@@ -239,7 +239,8 @@ Private endpoints require a valid Token to be included in the header of the requ
   }
   ```
 
-  ObjectValue must specify the data type: 
+  ObjectValue must specify the data type:
+
   ```gql
   ObjectValue {
     int: Int
@@ -268,6 +269,62 @@ Private endpoints require a valid Token to be included in the header of the requ
     "objectValue": {
       "string": "Grapes - Black"
     }
+  }
+  ```
+
+  - Create an object
+
+  ```gql
+  query CreateObject($objectName: String!, $objectData: JSONScalarType!) {
+    createObject(objectName: $objectName, objectData: $objectData)
+  }
+  ```
+
+  Query variable examples:
+
+  ```json
+  {
+    "objectName": "posts",
+    "objectData": {
+      "title": "New post"
+    }
+  }
+  ```
+
+  - Update an object
+
+  ```gql
+  query UpdateObject($objectName: String!, $objectId: ID!, $objectData: JSONScalarType!) {
+    updateObject(objectName: $objectName, objectId: $objectId, objectData: $objectData)
+  }
+  ```
+
+  Query variable examples:
+
+  ```json
+  {
+    "objectName": "posts",
+    "objectId": "1",
+    "objectData": {
+      "title": "Update post"
+    }
+  }
+  ```
+
+  - Delete an object
+
+  ```gql
+  query DeleteObject($objectName: String!, $objectId: ID!) {
+    deleteObject(objectName: $objectName, objectId: $objectId)
+  }
+  ```
+
+  Query variable examples:
+
+  ```json
+  {
+    "objectName": "posts",
+    "objectId": "1"
   }
   ```
 
