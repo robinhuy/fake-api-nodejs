@@ -68,7 +68,7 @@ yarn install
   yarn dev
   ```
 
-- The server will run on `http://localhost:3000`. You can test with public endpoint: `http://localhost:3000/products` (GET method).
+- The server will run on `http://localhost:8000`. You can test with public endpoint: `http://localhost:8000/products` (GET method).
 
 ## Modify your data
 
