@@ -1,48 +1,33 @@
-const jwt = require("jsonwebtoken");
-const {
-  accessTokenSecret,
-  accessTokenExpiresInMinutes,
-  refreshTokenSecret,
-  refreshTokenExpiresInMinutes,
-} = require("./config.json");
+import jwt from "jsonwebtoken";
+import config from "./config.json" assert { type: "json" };
 
-function generateAccessToken(userId) {
-  return jwt.sign({ sub: userId }, accessTokenSecret, {
-    expiresIn: accessTokenExpiresInMinutes + "m",
+export const generateAccessToken = (userId) => {
+  return jwt.sign({ sub: userId }, config.accessTokenSecret, {
+    expiresIn: config.accessTokenExpiresInMinutes + "m",
   });
-}
+};
 
-function generateRefreshToken(userId) {
-  return jwt.sign({ sub: userId }, refreshTokenSecret, {
-    expiresIn: refreshTokenExpiresInMinutes + "m",
+export const generateRefreshToken = (userId) => {
+  return jwt.sign({ sub: userId }, config.refreshTokenSecret, {
+    expiresIn: config.refreshTokenExpiresInMinutes + "m",
   });
-}
+};
 
-function decodeRefreshToken(token) {
-  return jwt.verify(token, refreshTokenSecret);
-}
+export const decodeRefreshToken = (token) => {
+  return jwt.verify(token, config.refreshTokenSecret);
+};
 
-function isAuthenticated(req) {
+export const isAuthenticated = (req) => {
   let token = "";
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.split(" ")[0] === "Bearer"
-  ) {
+  if (req.headers.authorization && req.headers.authorization.split(" ")[0] === "Bearer") {
     token = req.headers.authorization.split(" ")[1];
   }
 
   try {
-    jwt.verify(token, accessTokenSecret);
+    jwt.verify(token, config.accessTokenSecret);
   } catch (err) {
     return false;
   }
 
   return true;
-}
-
-module.exports = {
-  generateAccessToken,
-  generateRefreshToken,
-  decodeRefreshToken,
-  isAuthenticated,
 };

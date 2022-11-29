@@ -1,5 +1,5 @@
 function ResourceItem({ name, length }) {
-  if (name === "protected_resources") return;
+  if (name === "protectedResources") return;
 
   return `
       <li>

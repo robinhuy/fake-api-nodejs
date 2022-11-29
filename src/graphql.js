@@ -1,7 +1,7 @@
-const { buildSchema } = require("graphql");
-const { ObjectScalarType } = require("../utils/graphql-scalar-type");
+import { buildSchema } from "graphql";
+import { ObjectScalarType } from "../utils/graphql-scalar-type.js";
 
-const schema = buildSchema(`
+export const schema = buildSchema(`
   scalar ObjectScalarType
 
   input ObjectValue {
@@ -17,31 +17,20 @@ const schema = buildSchema(`
   }
 `);
 
-const setupRootValue = (db) => {
+export const setupRootValue = (db) => {
   return {
     getObjects: ({ objectName }) => {
-      const obj = db.get(objectName).value();
+      const obj = db.data[objectName];
       return obj;
     },
     getObjectByKey: ({ objectName, objectKey, objectValue }) => {
-      const obj = db
-        .get(objectName)
-        .find((o) => {
-          return (
-            o[objectKey] ===
-            (objectValue.int ??
-              objectValue.float ??
-              objectValue.string ??
-              objectValue.boolean)
-          );
-        })
-        .value();
+      const obj = db.get(objectName).find((o) => {
+        return (
+          o[objectKey] ===
+          (objectValue.int ?? objectValue.float ?? objectValue.string ?? objectValue.boolean)
+        );
+      });
       return obj;
     },
   };
-};
-
-module.exports = {
-  schema,
-  setupRootValue,
 };

@@ -1,4 +1,4 @@
-module.exports = function (socket, io) {
+const SocketIOServer = (socket, io) => {
   console.log("An user connected");
 
   socket.on("emit", (msg) => {
@@ -25,3 +25,5 @@ module.exports = function (socket, io) {
     console.log("An user disconnected");
   });
 };
+
+export default SocketIOServer;

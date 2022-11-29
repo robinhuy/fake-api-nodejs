@@ -1,30 +1,30 @@
-const jsonServer = require("json-server");
-const http = require("http");
-const { graphqlHTTP } = require("express-graphql");
-const { schema, setupRootValue } = require("./src/graphql");
-const { Server } = require("socket.io");
-const socketHandler = require("./src/socket-io");
-const {
+import { graphqlHTTP } from "express-graphql";
+import http from "http";
+import jsonServer from "json-server";
+import { Low } from "lowdb";
+import { JSONFile } from "lowdb/node";
+import { Server } from "socket.io";
+
+import config from "./config.json" assert { type: "json" };
+import { isAuthenticated } from "./jwt-authenticate.js";
+import { schema, setupRootValue } from "./src/graphql.js";
+import {
   loginHandler,
+  registerHandler,
   renewTokenHandler,
+  socketEmit,
   uploadFileHandler,
   uploadFilesHandler,
-  registerHandler,
-  socketEmit,
-} = require("./src/rest");
-const { defaultPort, databaseFile } = require("./config.json");
-const { isAuthenticated } = require("./jwt-authenticate");
+} from "./src/rest.js";
+import socketHandler from "./src/socket-io.js";
 
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync(databaseFile);
-const db = low(adapter);
+const db = new Low(new JSONFile(config.databaseFile));
+await db.read();
 
 const app = jsonServer.create();
-const router = jsonServer.router(db);
+const router = jsonServer.router(config.databaseFile);
 const middlewares = jsonServer.defaults();
-const port = process.env.PORT || defaultPort;
-
+const port = process.env.PORT || config.defaultPort;
 const server = http.createServer(app);
 
 // Init socket io server
@@ -36,10 +36,7 @@ io.on("connection", (socket) => {
 });
 
 // Init graphql
-app.use(
-  "/graphql",
-  graphqlHTTP({ schema, rootValue: setupRootValue(db), graphiql: true })
-);
+app.use("/graphql", graphqlHTTP({ schema, rootValue: setupRootValue(db), graphiql: true }));
 
 // Set default middlewares (logger, static, cors and no-cache)
 app.use(middlewares);
@@ -89,7 +86,7 @@ app.post("/upload-files", uploadFilesHandler);
 
 // Access control
 app.use((req, res, next) => {
-  const protectedResources = db.get("protected_resources").value();
+  const protectedResources = db.data.protected_resources;
   if (!protectedResources) {
     next();
     return;
@@ -97,8 +94,7 @@ app.use((req, res, next) => {
 
   const resource = req.path.slice(1).split("/")[0];
   const protectedResource =
-    protectedResources[resource] &&
-    protectedResources[resource].map((item) => item.toUpperCase());
+    protectedResources[resource] && protectedResources[resource].map((item) => item.toUpperCase());
   const reqMethod = req.method.toUpperCase();
 
   if (protectedResource && protectedResource.includes(reqMethod)) {

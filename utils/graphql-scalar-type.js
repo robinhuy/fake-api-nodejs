@@ -1,21 +1,13 @@
-const { GraphQLScalarType } = require("graphql");
+import { GraphQLScalarType } from "graphql";
 
-const ObjectScalarType = new GraphQLScalarType({
+export const ObjectScalarType = new GraphQLScalarType({
   name: "Object",
   description: "Arbitrary object",
   parseValue: (value) => {
-    return typeof value === "object"
-      ? value
-      : typeof value === "string"
-      ? JSON.parse(value)
-      : null;
+    return typeof value === "object" ? value : typeof value === "string" ? JSON.parse(value) : null;
   },
   serialize: (value) => {
-    return typeof value === "object"
-      ? value
-      : typeof value === "string"
-      ? JSON.parse(value)
-      : null;
+    return typeof value === "object" ? value : typeof value === "string" ? JSON.parse(value) : null;
   },
   parseLiteral: (ast) => {
     switch (ast.kind) {
@@ -28,7 +20,3 @@ const ObjectScalarType = new GraphQLScalarType({
     }
   },
 });
-
-module.exports = {
-  ObjectScalarType,
-};

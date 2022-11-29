@@ -1,28 +1,23 @@
-const formidable = require("formidable");
-const { copyFile, unlink } = require("fs/promises");
-const {
+import formidable from "formidable";
+import { copyFile, unlink } from "fs/promises";
+import {
   generateAccessToken,
   generateRefreshToken,
   decodeRefreshToken,
-} = require("../jwt-authenticate");
+} from "../jwt-authenticate.js";
 
 const handleUploadFile = async (req, file) => {
   const uploadFolder = "uploads";
 
   try {
     // Copy file from temp folder to uploads folder (not rename to allow cross-device link)
-    await copyFile(
-      file.filepath,
-      `./public/${uploadFolder}/${file.originalFilename}`
-    );
+    await copyFile(file.filepath, `./public/${uploadFolder}/${file.originalFilename}`);
 
     // Remove temp file
     await unlink(file.filepath);
 
     // Return new path of uploaded file
-    file.filepath = `${req.protocol}://${req.get("host")}/${uploadFolder}/${
-      file.name
-    }`;
+    file.filepath = `${req.protocol}://${req.get("host")}/${uploadFolder}/${file.name}`;
 
     return file;
   } catch (err) {
@@ -30,169 +25,157 @@ const handleUploadFile = async (req, file) => {
   }
 };
 
-module.exports = {
-  loginHandler: (db, req, res) => {
-    const { username, email, password: pwd } = req.body;
+export const loginHandler = (db, req, res) => {
+  const { username, email, password: pwd } = req.body;
 
-    const user = db
-      .get("users")
-      .find(
-        (u) =>
-          (u.username === username || u.email === email) && u.password === pwd
-      )
-      .value();
+  const user = db.data.users.find(
+    (u) => (u.username === username || u.email === email) && u.password === pwd
+  );
 
-    if (user && user.password === pwd) {
-      const accessToken = generateAccessToken(user.id);
-      const refreshToken = generateRefreshToken(user.id);
-      const { password, ...userWithoutPassword } = user;
+  if (user && user.password === pwd) {
+    const accessToken = generateAccessToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
+    const { password, ...userWithoutPassword } = user;
+
+    res.jsonp({
+      ...userWithoutPassword,
+      accessToken,
+      refreshToken,
+    });
+  } else {
+    res.status(400).jsonp({ message: "Username or password is incorrect!" });
+  }
+};
+
+export const renewTokenHandler = (req, res) => {
+  const { refreshToken } = req.body;
+
+  if (refreshToken) {
+    try {
+      const payload = decodeRefreshToken(refreshToken);
+      const accessToken = generateAccessToken(payload.sub);
 
       res.jsonp({
-        ...userWithoutPassword,
         accessToken,
-        refreshToken,
       });
-    } else {
-      res.status(400).jsonp({ message: "Username or password is incorrect!" });
+    } catch (error) {
+      res.status(400).jsonp({ error });
     }
-  },
+  } else {
+    res.status(400).jsonp({ message: "Refresh Token is invalid!" });
+  }
+};
 
-  renewTokenHandler: (req, res) => {
-    const { refreshToken } = req.body;
+export const registerHandler = (db, req, res) => {
+  const { username, email, password } = req.body;
+  const users = db.data.users;
 
-    if (refreshToken) {
-      try {
-        const payload = decodeRefreshToken(refreshToken);
-        const accessToken = generateAccessToken(payload.sub);
+  if (!password && (!email || !username)) {
+    res.status(400).jsonp({ message: "Please input all required fields!" });
+    return;
+  }
 
-        res.jsonp({
-          accessToken,
-        });
-      } catch (error) {
-        res.status(400).jsonp({ error });
-      }
-    } else {
-      res.status(400).jsonp({ message: "Refresh Token is invalid!" });
-    }
-  },
+  const existUsername = users.find((user) => username && user.username === username);
 
-  registerHandler: (db, req, res) => {
-    const { username, email, password } = req.body;
-
-    if (!password && (!email || !username)) {
-      res.status(400).jsonp({ message: "Please input all required fields!" });
-      return;
-    }
-
-    const existUsername = db
-      .get("users")
-      .find((user) => username && user.username === username)
-      .value();
-
-    if (existUsername) {
-      res.status(400).jsonp({
-        message:
-          "The username already exists. Please use a different username!",
-      });
-      return;
-    }
-
-    const existEmail = db
-      .get("users")
-      .find((user) => email && user.email === email)
-      .value();
-
-    if (existEmail) {
-      res.status(400).jsonp({
-        message:
-          "The email address is already being used! Please use a different email!",
-      });
-      return;
-    }
-
-    const lastUser = db.get("users").maxBy("id").value();
-    const newUserId = parseInt(lastUser.id, 10) + 1;
-    const newUser = { id: newUserId, ...req.body };
-
-    db.get("users").push(newUser).write();
-
-    res.jsonp(newUser);
-  },
-
-  uploadFileHandler: (req, res) => {
-    if (req.headers["content-type"] === "application/json") {
-      res
-        .status(400)
-        .jsonp({ message: 'Content-Type "application/json" is not allowed.' });
-      return;
-    }
-
-    const form = formidable();
-
-    form.parse(req, async (error, fields, files) => {
-      let file = files.file;
-
-      if (error || !file) {
-        res.status(400).jsonp({ message: 'Missing "file" field.' });
-        return;
-      }
-
-      try {
-        file = await handleUploadFile(req, file);
-        res.jsonp(file);
-      } catch (err) {
-        console.log(err);
-        res.status(500).jsonp({ message: "Cannot upload file." });
-      }
+  if (existUsername) {
+    res.status(400).jsonp({
+      message: "The username already exists. Please use a different username!",
     });
-  },
+    return;
+  }
 
-  uploadFilesHandler: (req, res) => {
-    if (req.headers["content-type"] === "application/json") {
-      res
-        .status(400)
-        .jsonp({ message: 'Content-Type "application/json" is not allowed.' });
+  const existEmail = users.find((user) => email && user.email === email);
+
+  if (existEmail) {
+    res.status(400).jsonp({
+      message: "The email address is already being used! Please use a different email!",
+    });
+    return;
+  }
+
+  let maxId = 0;
+  for (let u of users) {
+    if (u.id > maxId) {
+      maxId = u.id;
+    }
+  }
+  const newUser = { id: maxId + 1, ...req.body };
+
+  users.push(newUser);
+  db.write();
+
+  res.jsonp(newUser);
+};
+
+export const uploadFileHandler = (req, res) => {
+  if (req.headers["content-type"] === "application/json") {
+    res.status(400).jsonp({ message: 'Content-Type "application/json" is not allowed.' });
+    return;
+  }
+
+  const form = formidable();
+
+  form.parse(req, async (error, fields, files) => {
+    let file = files.file;
+
+    if (error || !file) {
+      res.status(400).jsonp({ message: 'Missing "file" field.' });
       return;
     }
 
-    const form = formidable({ multiples: true });
+    try {
+      file = await handleUploadFile(req, file);
+      res.jsonp(file);
+    } catch (err) {
+      console.log(err);
+      res.status(500).jsonp({ message: "Cannot upload file." });
+    }
+  });
+};
 
-    form.parse(req, async (error, fields, files) => {
-      let filesUploaded = files.files;
+export const uploadFilesHandler = (req, res) => {
+  if (req.headers["content-type"] === "application/json") {
+    res.status(400).jsonp({ message: 'Content-Type "application/json" is not allowed.' });
+    return;
+  }
 
-      if (error || !filesUploaded) {
-        res.status(400).jsonp({ message: 'Missing "files" field.' });
-        return;
-      }
+  const form = formidable({ multiples: true });
 
-      // If user upload 1 file, transform data to array
-      if (!Array.isArray(filesUploaded)) {
-        filesUploaded = [filesUploaded];
-      }
+  form.parse(req, async (error, fields, files) => {
+    let filesUploaded = files.files;
 
-      try {
-        // Handle all uploaded files
-        filesUploaded = await Promise.all(
-          filesUploaded.map(async (file) => {
-            try {
-              file = await handleUploadFile(req, file);
-              return file;
-            } catch (err) {
-              throw err;
-            }
-          })
-        );
+    if (error || !filesUploaded) {
+      res.status(400).jsonp({ message: 'Missing "files" field.' });
+      return;
+    }
 
-        res.jsonp(filesUploaded);
-      } catch (err) {
-        console.log(err);
-        res.status(500).jsonp({ message: "Cannot upload files." });
-      }
-    });
-  },
+    // If user upload 1 file, transform data to array
+    if (!Array.isArray(filesUploaded)) {
+      filesUploaded = [filesUploaded];
+    }
 
-  socketEmit: (io, req, res) => {
-    io.emit("socket-emit", req.body);
-    res.jsonp({ msg: "Message sent over websocket connection" });
-  },
+    try {
+      // Handle all uploaded files
+      filesUploaded = await Promise.all(
+        filesUploaded.map(async (file) => {
+          try {
+            file = await handleUploadFile(req, file);
+            return file;
+          } catch (err) {
+            throw err;
+          }
+        })
+      );
+
+      res.jsonp(filesUploaded);
+    } catch (err) {
+      console.log(err);
+      res.status(500).jsonp({ message: "Cannot upload files." });
+    }
+  });
+};
+
+export const socketEmit = (io, req, res) => {
+  io.emit("socket-emit", req.body);
+  res.jsonp({ msg: "Message sent over websocket connection" });
 };

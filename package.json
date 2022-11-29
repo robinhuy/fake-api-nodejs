@@ -1,8 +1,9 @@
 {
-  "name": "fake-rest-api-nodejs",
-  "version": "1.1.1",
-  "description": "Fake REST API using NodeJS + JSON Server",
-  "main": "server.js",
+  "name": "fake-api-nodejs",
+  "version": "1.0.0",
+  "description": "Fake API using NodeJS + JSON Server + Socket.IO + GraphQL",
+  "type": "module",
+  "exports": "./server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
@@ -18,16 +19,16 @@
   "author": "Robin Huy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/robinhuy/fake-rest-api-nodejs/issues"
+    "url": "https://github.com/robinhuy/fake-api-nodejs/issues"
   },
-  "homepage": "https://github.com/robinhuy/fake-rest-api-nodejs#readme",
+  "homepage": "https://github.com/robinhuy/fake-api-nodejs#readme",
   "dependencies": {
     "express-graphql": "^0.12.0",
     "formidable": "^2.0.1",
     "graphql": "^16.6.0",
     "json-server": "^0.17.1",
     "jsonwebtoken": "^8.5.1",
-    "lowdb": "1.0.0",
+    "lowdb": "^5.0.5",
     "socket.io": "^4.5.4"
   },
   "devDependencies": {

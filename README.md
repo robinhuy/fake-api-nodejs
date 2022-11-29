@@ -81,7 +81,7 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 - To protect resources, decleare resources and protected methods in `database.json`:
 
   ```json
-  "protected_resources": {
+  "protectedResources": {
     "users": ["GET", "POST", "PUT", "PATCH", "DELETE"],
     "products": ["POST", "PUT", "PATCH", "DELETE"]
   }
