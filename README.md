@@ -272,7 +272,7 @@ Private endpoints require a valid Token to be included in the header of the requ
   }
   ```
 
-  - Create an object
+- Create an object
 
   ```gql
   query CreateObject($objectName: String!, $objectData: JSONScalarType!) {
@@ -291,7 +291,7 @@ Private endpoints require a valid Token to be included in the header of the requ
   }
   ```
 
-  - Update an object
+- Update an object
 
   ```gql
   query UpdateObject($objectName: String!, $objectId: ID!, $objectData: JSONScalarType!) {
@@ -311,7 +311,7 @@ Private endpoints require a valid Token to be included in the header of the requ
   }
   ```
 
-  - Delete an object
+- Delete an object
 
   ```gql
   query DeleteObject($objectName: String!, $objectId: ID!) {
