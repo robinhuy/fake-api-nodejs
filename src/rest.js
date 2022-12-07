@@ -1,23 +1,28 @@
-import formidable from "formidable";
-import { copyFile, unlink } from "fs/promises";
+import formidable from 'formidable';
+import { copyFile, unlink } from 'fs/promises';
 import {
   generateAccessToken,
   generateRefreshToken,
   decodeRefreshToken,
-} from "../jwt-authenticate.js";
+} from '../utils/jwt-authenticate.js';
 
 const handleUploadFile = async (req, file) => {
-  const uploadFolder = "uploads";
+  const uploadFolder = 'uploads';
 
   try {
     // Copy file from temp folder to uploads folder (not rename to allow cross-device link)
-    await copyFile(file.filepath, `./public/${uploadFolder}/${file.originalFilename}`);
+    await copyFile(
+      file.filepath,
+      `./public/${uploadFolder}/${file.originalFilename}`
+    );
 
     // Remove temp file
     await unlink(file.filepath);
 
     // Return new path of uploaded file
-    file.filepath = `${req.protocol}://${req.get("host")}/${uploadFolder}/${file.name}`;
+    file.filepath = `${req.protocol}://${req.get('host')}/${uploadFolder}/${
+      file.name
+    }`;
 
     return file;
   } catch (err) {
@@ -43,7 +48,7 @@ export const loginHandler = (db, req, res) => {
       refreshToken,
     });
   } else {
-    res.status(400).jsonp({ message: "Username or password is incorrect!" });
+    res.status(400).jsonp({ message: 'Username or password is incorrect!' });
   }
 };
 
@@ -62,7 +67,7 @@ export const renewTokenHandler = (req, res) => {
       res.status(400).jsonp({ error });
     }
   } else {
-    res.status(400).jsonp({ message: "Refresh Token is invalid!" });
+    res.status(400).jsonp({ message: 'Refresh Token is invalid!' });
   }
 };
 
@@ -71,15 +76,17 @@ export const registerHandler = (db, req, res) => {
   const users = db.data.users;
 
   if (!password && (!email || !username)) {
-    res.status(400).jsonp({ message: "Please input all required fields!" });
+    res.status(400).jsonp({ message: 'Please input all required fields!' });
     return;
   }
 
-  const existUsername = users.find((user) => username && user.username === username);
+  const existUsername = users.find(
+    (user) => username && user.username === username
+  );
 
   if (existUsername) {
     res.status(400).jsonp({
-      message: "The username already exists. Please use a different username!",
+      message: 'The username already exists. Please use a different username!',
     });
     return;
   }
@@ -88,7 +95,8 @@ export const registerHandler = (db, req, res) => {
 
   if (existEmail) {
     res.status(400).jsonp({
-      message: "The email address is already being used! Please use a different email!",
+      message:
+        'The email address is already being used! Please use a different email!',
     });
     return;
   }
@@ -108,8 +116,10 @@ export const registerHandler = (db, req, res) => {
 };
 
 export const uploadFileHandler = (req, res) => {
-  if (req.headers["content-type"] === "application/json") {
-    res.status(400).jsonp({ message: 'Content-Type "application/json" is not allowed.' });
+  if (req.headers['content-type'] === 'application/json') {
+    res
+      .status(400)
+      .jsonp({ message: 'Content-Type "application/json" is not allowed.' });
     return;
   }
 
@@ -128,14 +138,16 @@ export const uploadFileHandler = (req, res) => {
       res.jsonp(file);
     } catch (err) {
       console.log(err);
-      res.status(500).jsonp({ message: "Cannot upload file." });
+      res.status(500).jsonp({ message: 'Cannot upload file.' });
     }
   });
 };
 
 export const uploadFilesHandler = (req, res) => {
-  if (req.headers["content-type"] === "application/json") {
-    res.status(400).jsonp({ message: 'Content-Type "application/json" is not allowed.' });
+  if (req.headers['content-type'] === 'application/json') {
+    res
+      .status(400)
+      .jsonp({ message: 'Content-Type "application/json" is not allowed.' });
     return;
   }
 
@@ -170,12 +182,12 @@ export const uploadFilesHandler = (req, res) => {
       res.jsonp(filesUploaded);
     } catch (err) {
       console.log(err);
-      res.status(500).jsonp({ message: "Cannot upload files." });
+      res.status(500).jsonp({ message: 'Cannot upload files.' });
     }
   });
 };
 
 export const socketEmit = (io, req, res) => {
-  io.emit("socket-emit", req.body);
-  res.jsonp({ msg: "Message sent over websocket connection" });
+  io.emit('socket-emit', req.body);
+  res.jsonp({ msg: 'Message sent over websocket connection' });
 };
