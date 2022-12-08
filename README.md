@@ -119,7 +119,7 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
 
 - To upload multiple files, using endpoint `/upload-files`, method `POST`, request type `form-data`, field `files`. Uploaded files stored in `/public/uploads/`.
 
-- Change default port, database file, jwt secret or jwt token expires in `config.json`.
+- Change default port, database file, jwt secret or jwt token expires in `config.js`.
 
 ## Access & modify API
 
