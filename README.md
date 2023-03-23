@@ -329,3 +329,8 @@ Private endpoints require a valid Token to be included in the header of the requ
   ```
 
   ...
+
+## Rewrite URL
+
+You can rewrite the URL by modifying the url-rewrite.json file. 
+For example, you can configure it to access **/api/products** instead of **/products**.
