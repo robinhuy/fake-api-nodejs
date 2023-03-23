@@ -184,31 +184,31 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Event `emit`: Echo message to sender
 
   ```js
-  socket.emit("emit", "Hello");
+  socket.emit('emit', 'Hello');
   ```
 
 - Event `broadcast`: Broadcast message to all clients in the current namespace except the sender
 
   ```js
-  socket.emit("broadcast", "Hello");
+  socket.emit('broadcast', 'Hello');
   ```
 
 - Event `broadcast-all`: Broadcast message to all clients in the current namespace include the sender
 
   ```js
-  socket.emit("broadcast-all", "Hello");
+  socket.emit('broadcast-all', 'Hello');
   ```
 
 - Event `join-room`: Join a room
 
   ```js
-  socket.emit("join-room", "game");
+  socket.emit('join-room', 'game');
   ```
 
 - Event `emit-in-room`: Send message to all clients in the room except the sender
 
   ```js
-  socket.emit("join-room", { room: "game", event: "chat", msg: "Hello" });
+  socket.emit('join-room', { room: 'game', event: 'chat', msg: 'Hello' });
   ```
 
 ### GraphQL
@@ -234,8 +234,16 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Get an object by name, search by property
 
   ```gql
-  query getData($objectName: String!, $objectKey: String!, $objectValue: ObjectValue) {
-    getObjectByKey(objectName: $objectName, objectKey: $objectKey, objectValue: $objectValue)
+  query getData(
+    $objectName: String!
+    $objectKey: String!
+    $objectValue: ObjectValue
+  ) {
+    getObjectByKey(
+      objectName: $objectName
+      objectKey: $objectKey
+      objectValue: $objectValue
+    )
   }
   ```
 
@@ -294,8 +302,16 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Update an object
 
   ```gql
-  query UpdateObject($objectName: String!, $objectId: ID!, $objectData: JSONScalarType!) {
-    updateObject(objectName: $objectName, objectId: $objectId, objectData: $objectData)
+  query UpdateObject(
+    $objectName: String!
+    $objectId: ID!
+    $objectData: JSONScalarType!
+  ) {
+    updateObject(
+      objectName: $objectName
+      objectId: $objectId
+      objectData: $objectData
+    )
   }
   ```
 
@@ -332,5 +348,6 @@ Private endpoints require a valid Token to be included in the header of the requ
 
 ## Rewrite URL
 
-You can rewrite the URL by modifying the url-rewrite.json file. 
-For example, you can configure it to access **/api/products** instead of **/products**.
+You can rewrite the URL by modifying the `url-rewrite.json` file.
+
+For example, you can configure it to access **/api/products** instead of **/products** (default base URL rewrite rule).
