@@ -95,7 +95,7 @@ app.post('/upload-files', uploadFilesHandler);
 
 // Access control
 app.use((req, res, next) => {
-  const protectedResources = db.data.protected_resources;
+  const protectedResources = db.data.protectedResources;
   if (!protectedResources) {
     next();
     return;
