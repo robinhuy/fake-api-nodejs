@@ -4,7 +4,7 @@ Get a full fake API as soon as possible. Base on [NodeJS](https://nodejs.org/en/
 
 Features:
 
-- Define your own database using a json file, generate REST APIs from that database.
+- Define your own database using a JSON file, generate REST APIs from that database.
 
 - Register user with username & password or email & password. Using object `users` in the database.
 
@@ -15,6 +15,10 @@ Features:
 - Upload files.
 
 - Send and receive messages over web socket connection (Socket.IO).
+
+- Rewrite URL.
+
+- Proxy Server.
 
 Preview: [https://nodejs-fake-api.herokuapp.com](https://nodejs-fake-api.herokuapp.com/)
 
@@ -351,3 +355,17 @@ Private endpoints require a valid Token to be included in the header of the requ
 You can rewrite the URL by modifying the `url-rewrite.json` file.
 
 For example, you can configure it to access **/api/products** instead of **/products** (default base URL rewrite rule).
+
+## Proxy Server
+
+If you want to create a proxy server to bypass CORS, you just need to set up **proxyServer** and **proxyUrl** in the `config.js` file
+
+For example, setting:
+
+```
+  proxyServer: 'http://example.org',
+  proxyUrl: '/api',
+```
+
+will create a proxy server to forward API requests from `http://localhost:8000/api/foo/bar` to `http://example.org/api/foo/bar`.
+

@@ -4,6 +4,7 @@ import jsonServer from 'json-server';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { Server } from 'socket.io';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { CONFIG } from './config.js';
 import { isAuthenticated } from './utils/jwt-authenticate.js';
@@ -35,6 +36,15 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   socketHandler(socket, io);
 });
+
+// Config proxy middlewares
+app.use(
+  CONFIG.proxyUrl,
+  createProxyMiddleware({
+    target: CONFIG.proxyServer,
+    changeOrigin: true,
+  })
+);
 
 // Init graphql
 app.use(
