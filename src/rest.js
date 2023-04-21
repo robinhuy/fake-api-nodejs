@@ -32,7 +32,7 @@ export const testHandler = (db, req, res) => {
 export const loginHandler = (db, req, res) => {
   const {username, email, password: pwd} = req.body;
 
-  const user = db.data.users.find(
+  const user = db.data.users?.find(
     (u) => (u.username === username || u.email === email) && u.password === pwd
   );
 
@@ -79,7 +79,7 @@ export const registerHandler = (db, req, res) => {
     return;
   }
 
-  const existUsername = users.find((user) => username && user.username === username);
+  const existUsername = users?.find((user) => username && user.username === username);
 
   if (existUsername) {
     res.status(400).jsonp({
@@ -88,7 +88,7 @@ export const registerHandler = (db, req, res) => {
     return;
   }
 
-  const existEmail = users.find((user) => email && user.email === email);
+  const existEmail = users?.find((user) => email && user.email === email);
 
   if (existEmail) {
     res.status(400).jsonp({
@@ -105,7 +105,7 @@ export const registerHandler = (db, req, res) => {
   }
   const newUser = {id: maxId + 1, ...req.body};
 
-  users.push(newUser);
+  users?.push(newUser);
   db.write();
 
   res.jsonp(newUser);
