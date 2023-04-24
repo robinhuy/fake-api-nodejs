@@ -37,8 +37,8 @@ export const loginHandler = (db, req, res) => {
   );
 
   if (user && user.password === pwd) {
-    const accessToken = generateAccessToken(user.id);
-    const refreshToken = generateRefreshToken(user.id);
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
     const {password, ...userWithoutPassword} = user;
 
     res.jsonp({

@@ -1,14 +1,18 @@
 import jwt from 'jsonwebtoken';
 import { CONFIG } from '../config.js';
 
-export const generateAccessToken = (userId) => {
-  return jwt.sign({ sub: userId }, CONFIG.accessTokenSecret, {
-    expiresIn: CONFIG.accessTokenExpiresInMinutes + 'm',
-  });
+export const generateAccessToken = (user) => {
+  return jwt.sign(
+    { sub: user.id, name: user.firstName + ' ' + user.lastName, avatar: user.avatar },
+    CONFIG.accessTokenSecret,
+    {
+      expiresIn: CONFIG.accessTokenExpiresInMinutes + 'm',
+    }
+  );
 };
 
-export const generateRefreshToken = (userId) => {
-  return jwt.sign({ sub: userId }, CONFIG.refreshTokenSecret, {
+export const generateRefreshToken = (user) => {
+  return jwt.sign({ sub: user.id }, CONFIG.refreshTokenSecret, {
     expiresIn: CONFIG.refreshTokenExpiresInMinutes + 'm',
   });
 };
@@ -19,10 +23,7 @@ export const decodeRefreshToken = (token) => {
 
 export const isAuthenticated = (req) => {
   let token = '';
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.split(' ')[0] === 'Bearer'
-  ) {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
     token = req.headers.authorization.split(' ')[1];
   }
 
