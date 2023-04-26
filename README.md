@@ -111,11 +111,11 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
   }
   ```
 
-- To renew AccessToken, using endpoint `/renew-token`, method `POST`, request type `application/json`. Body request like this:
+- To renew AccessToken, using endpoint `/refresh-token`, method `POST`, request type `application/json`. Body request like this:
 
   ```json
   {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo"
   }
   ```
 

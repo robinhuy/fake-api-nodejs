@@ -1,5 +1,5 @@
-import { buildSchema } from "graphql";
-import { ObjectScalarType, JSONScalarType } from "../utils/graphql-scalar-type.js";
+import { buildSchema } from 'graphql';
+import { ObjectScalarType, JSONScalarType } from '../utils/graphql-scalar-type.js';
 
 export const schema = buildSchema(`
   scalar ObjectScalarType
@@ -67,7 +67,7 @@ export const setupRootValue = (db) => {
       return {
         id: newObject.id,
         code: 200,
-        message: "Create object successfully!",
+        message: 'Create object successfully!',
       };
     },
 
@@ -75,7 +75,7 @@ export const setupRootValue = (db) => {
       if (!db.data[objectName]) {
         return {
           code: 404,
-          message: "Object type not found!",
+          message: 'Object type not found!',
         };
       }
 
@@ -83,7 +83,7 @@ export const setupRootValue = (db) => {
       if (!object) {
         return {
           code: 404,
-          message: "Object not found!",
+          message: 'Object not found!',
         };
       }
 
@@ -96,7 +96,7 @@ export const setupRootValue = (db) => {
       return {
         id: objectId,
         code: 200,
-        message: "Update object successfully!",
+        message: 'Update object successfully!',
       };
     },
 
@@ -104,7 +104,7 @@ export const setupRootValue = (db) => {
       if (!db.data[objectName]) {
         return {
           code: 404,
-          message: "Object type not found!",
+          message: 'Object type not found!',
         };
       }
 
@@ -113,7 +113,7 @@ export const setupRootValue = (db) => {
       if (objectIndex === -1) {
         return {
           code: 404,
-          message: "Object not found!",
+          message: 'Object not found!',
         };
       }
 
@@ -123,7 +123,7 @@ export const setupRootValue = (db) => {
       return {
         id: objectId,
         code: 200,
-        message: "Delete object successfully!",
+        message: 'Delete object successfully!',
       };
     },
   };

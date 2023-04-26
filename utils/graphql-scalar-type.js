@@ -1,4 +1,4 @@
-import { GraphQLScalarType, Kind } from "graphql";
+import { GraphQLScalarType, Kind } from 'graphql';
 
 function parseLiteral(ast, variables) {
   switch (ast.kind) {
@@ -31,7 +31,7 @@ function parseObject(ast, variables) {
 }
 
 function ensureObject(value, ast) {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
     throw createGraphQLError(
       `JSONObject cannot represent non-object value: ${value}`,
       ast
@@ -46,13 +46,13 @@ function ensureObject(value, ast) {
 }
 
 export const ObjectScalarType = new GraphQLScalarType({
-  name: "Object",
-  description: "Arbitrary object",
+  name: 'Object',
+  description: 'Arbitrary object',
   parseValue: (value) => {
-    return typeof value === "object" ? value : typeof value === "string" ? JSON.parse(value) : null;
+    return typeof value === 'object' ? value : typeof value === 'string' ? JSON.parse(value) : null;
   },
   serialize: (value) => {
-    return typeof value === "object" ? value : typeof value === "string" ? JSON.parse(value) : null;
+    return typeof value === 'object' ? value : typeof value === 'string' ? JSON.parse(value) : null;
   },
   parseLiteral: (ast) => {
     switch (ast.kind) {
@@ -67,8 +67,8 @@ export const ObjectScalarType = new GraphQLScalarType({
 });
 
 export const JSONScalarType = new GraphQLScalarType({
-  name: "JSON",
-  description: "JSON values",
+  name: 'JSON',
+  description: 'JSON values',
   parseValue: ensureObject,
   serialize: ensureObject,
   parseLiteral: parseObject,

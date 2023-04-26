@@ -12,7 +12,7 @@ import { schema, setupRootValue } from './src/graphql.js';
 import {
   loginHandler,
   registerHandler,
-  renewTokenHandler,
+  refreshTokenHandler,
   socketEmit,
   testHandler,
   uploadFileHandler,
@@ -47,10 +47,7 @@ app.use(
 );
 
 // Init graphql
-app.use(
-  '/graphql',
-  graphqlHTTP({ schema, rootValue: setupRootValue(db), graphiql: true })
-);
+app.use('/graphql', graphqlHTTP({ schema, rootValue: setupRootValue(db), graphiql: true }));
 
 // Set default middlewares (logger, static, cors and no-cache)
 app.use(middlewares);
@@ -93,8 +90,8 @@ app.post('/login', (req, res) => {
 });
 
 // Renew Token request
-app.post('/renew-token', (req, res) => {
-  renewTokenHandler(req, res);
+app.post('/refresh-token', (req, res) => {
+  refreshTokenHandler(req, res);
 });
 
 // Upload 1 file
@@ -113,8 +110,7 @@ app.use((req, res, next) => {
 
   const resource = req.path.slice(1).split('/')[0];
   const protectedResource =
-    protectedResources[resource] &&
-    protectedResources[resource].map((item) => item.toUpperCase());
+    protectedResources[resource] && protectedResources[resource].map((item) => item.toUpperCase());
   const reqMethod = req.method.toUpperCase();
 
   if (protectedResource && protectedResource.includes(reqMethod)) {
