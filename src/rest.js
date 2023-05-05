@@ -17,7 +17,7 @@ const handleUploadFile = async (req, file) => {
     await unlink(file.filepath);
 
     // Return new path of uploaded file
-    file.filepath = `${req.protocol}://${req.get('host')}/${uploadFolder}/${file.name}`;
+    file.filepath = `${req.protocol}://${req.get('host')}/${uploadFolder}/${file.originalFilename}`;
 
     return file;
   } catch (err) {

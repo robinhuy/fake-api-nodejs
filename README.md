@@ -20,8 +20,6 @@ Features:
 
 - Proxy Server.
 
-Preview: [https://nodejs-fake-api.herokuapp.com](https://nodejs-fake-api.herokuapp.com/)
-
 ## Getting started
 
 ### 1. Clone this repository
@@ -76,13 +74,13 @@ yarn install
 
 ## Modify your data
 
-All the data was placed in `database.json`. Edit it to suit your purpose but keep object `users` to use authentication feature.
+All the data is stored in database.json. Edit it to suit your needs but keep the users object to utilize the authentication feature.
 
-You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and publish your code to [https://heroku.com/](https://heroku.com/) or similar hosting to get a Public API.
+You can use [https://mockaroo.com/](https://mockaroo.com/) to generate mock data and then deploy your code to [https://heroku.com/](https://heroku.com/) or a similar hosting service to create a public API."
 
 **Note**:
 
-- To protect resources, decleare resources and protected methods in `database.json`:
+- To protect resources, declare the resources and protected methods in `database.json`:
 
   ```json
   "protectedResources": {
@@ -91,51 +89,23 @@ You can use [https://mockaroo.com/](https://mockaroo.com/) to mock data, and pub
   }
   ```
 
-- To register new user, using endpoint `/register`, method `POST`, request type `application/json`. Body request like `users` resources:
+  If you don't need to protect any resources, simply delete the object above.
 
-- To login, using endpoint `/login`, method `POST`, request type `application/json`. Body request like this:
-
-  ```json
-  {
-    "username": "admin",
-    "password": "admin"
-  }
-  ```
-
-  or
-
-  ```json
-  {
-    "email": "admin@gmail.com",
-    "password": "admin"
-  }
-  ```
-
-- To renew AccessToken, using endpoint `/refresh-token`, method `POST`, request type `application/json`. Body request like this:
-
-  ```json
-  {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo"
-  }
-  ```
-
-- To upload single file, using endpoint `/upload-file`, method `POST`, request type `form-data`, field `file`. Uploaded file stored in `/public/uploads/`.
-
-- To upload multiple files, using endpoint `/upload-files`, method `POST`, request type `form-data`, field `files`. Uploaded files stored in `/public/uploads/`.
-
-- Change default port, database file, jwt secret or jwt token expires in `config.js`.
+- To change the default port, database file, JWT secret, or JWT token expiration, ... modify the values in `config.js`.
 
 ## Access & modify API
 
 Please view detailed document in [https://github.com/typicode/json-server/blob/master/README.md#table-of-contents](https://github.com/typicode/json-server/blob/master/README.md#table-of-contents)
 
-If you want to change logic of authentication or add more custom REST endpoints, please edit file `server.js` and `src/rest.js`.
+If you want to modify the authentication logic or add more custom REST endpoints, please edit the `server.js` and `src/rest.js` files.
 
 Edit `src/socket-io.js` to add or modify Socket.IO events, `src/graphql.js` to add or modify GraphQL query/mutation (currently, authentication aren't being applied to Socket.IO & GraphQl endpoints).
 
+To add or modify Socket.IO events, edit the `src/socket-io.js` file. To add or modify GraphQL queries/mutations, edit the `src/graphql.js` file (currently, authentication isn't being applied to Socket.IO & GraphQL endpoints).
+
 ## Default Endpoints
 
-View and modify resources in `database.json`.
+To view and modify resources, access the `database.json` file.
 
 ### Open Endpoints
 
@@ -143,45 +113,120 @@ Open endpoints do not require Authentication.
 
 #### User
 
-- Login: POST /login
+Header: `Content-Type: application/json`.
 
-- Register: POST /register
+- **POST /register**: Register a new user.
+
+  ```
+  {
+    "firstName": "Administrator",
+    "lastName": "",
+    "username": "admin",
+    "email": "admin@gmail.com",
+    "password": "admin",
+    "avatar": "https://robohash.org/eaquequasincidunt.png?size=50x50&set=set1",
+    "gender": "Genderfluid",
+    "phone": "933-658-1213",
+    "birthday": "1994-03-23",
+    "status": true
+  }
+  ```
+
+- **POST /login**: Login user.
+
+  ```
+  {
+    "email": "admin@gmail.com",
+    "password": "admin"
+  }
+  ```
+
+  or
+
+  ```
+  {
+    "username": "admin",
+    "password": "admin"
+  }
+  ```
+
+- **POST /refresh-token**: Get new access token from refresh token.
+
+  ```
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY1NjMyNzE4NiwiZXhwIjoxNjU2MzI4MDg2fQ.-si1n7yHpjQ2LEyYqZT6ClIFJOqLOeVXRhwjzyvEZMo"
+  }
+  ```
 
 #### Product
 
-- Get products: GET /products
+Header: `Content-Type: application/json`.
 
-- Get product by ID: GET /products/:id
+- **GET /products**: Return a list of all products.
+
+- **GET /products/{id}**: Return information about a specific product.
 
 #### Media
 
-- Upload single file: POST /upload-file
+Header: `Content-Type: multipart/form-data`.
 
-- Upload multiple files: POST /upload-files
+- **POST /upload-file**: Upload single file.
+
+  | Parameter | Type | Description              |
+  | --------- | ---- | ------------------------ |
+  | file      | File | The file to be uploaded. |
+
+- **POST /upload-files**: Upload multiple files.
+
+  | Parameter | Type     | Description               |
+  | --------- | -------- | ------------------------- |
+  | files     | FileList | The files to be uploaded. |
 
 ### Private Endpoints (require Authentication)
 
-Private endpoints require a valid Token to be included in the header of the request. A Token can be acquired from the Login view above.
+Private endpoints require a valid token to be included in the request header. A token can be acquired from the Login API above.
+
+Request header: `Content-Type: application/json` and `Authorization: Bearer {token}`
 
 #### User
 
-- Get users: GET /users
+- **GET /users**: Return a list of all users.
 
-- Get user by ID: GET /users/:id
+- **GET /users/{id}**: Return information about a specific user.
 
-- Create user: POST /users
+- **POST /users**: Create a new user.
 
-- Update user (entire information): PUT /users/:id
+  Request is similar to the user registration API.
 
-- Update user (partial information) PATCH /users/:id
+- **PUT /users/{id}**: Update the entire information of a specific user.
+
+  Submit the entire user object except for the id field.
+
+- **PATCH /users/{id}**: Update the partial information of a specific user.
+
+  Submit the partial user object except for the id field.
 
 #### Product
 
-- Create product: POST /products
+- **POST /products**: Create a new product.
 
-- Update product (entire information): PUT /products/:id
+  ```
+  {
+    "name": "Pork Salted Bellies",
+    "price": 442,
+    "quantity": 16,
+    "thumbnail": "http://dummyimage.com/213x100.png/dddddd/000000",
+    "status": true
+  }
+  ```
 
-- Update product (partial information) PATCH /products/:id
+- **PUT /products/{id}**: Update the entire information of a specific product.
+
+  Submit the entire product object except for the id field.
+
+- **PATCH /products/{id}**: Update the partial information of a specific product.
+
+  Submit the partial product object except for the id field.
 
 ### Web Socket (Socket.IO)
 
@@ -238,16 +283,8 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Get an object by name, search by property
 
   ```gql
-  query getData(
-    $objectName: String!
-    $objectKey: String!
-    $objectValue: ObjectValue
-  ) {
-    getObjectByKey(
-      objectName: $objectName
-      objectKey: $objectKey
-      objectValue: $objectValue
-    )
+  query getData($objectName: String!, $objectKey: String!, $objectValue: ObjectValue) {
+    getObjectByKey(objectName: $objectName, objectKey: $objectKey, objectValue: $objectValue)
   }
   ```
 
@@ -306,16 +343,8 @@ Private endpoints require a valid Token to be included in the header of the requ
 - Update an object
 
   ```gql
-  query UpdateObject(
-    $objectName: String!
-    $objectId: ID!
-    $objectData: JSONScalarType!
-  ) {
-    updateObject(
-      objectName: $objectName
-      objectId: $objectId
-      objectData: $objectData
-    )
+  query UpdateObject($objectName: String!, $objectId: ID!, $objectData: JSONScalarType!) {
+    updateObject(objectName: $objectName, objectId: $objectId, objectData: $objectData)
   }
   ```
 
@@ -358,7 +387,7 @@ For example, you can configure it to access **/api/products** instead of **/prod
 
 ## Proxy Server
 
-If you want to create a proxy server to bypass CORS, you just need to set up **proxyServer** and **proxyUrl** in the `config.js` file
+If you want to create a proxy server to bypass CORS, you just need to set up **proxyServer** and **proxyUrl** in the `config.js` file.
 
 For example, setting:
 
@@ -368,4 +397,3 @@ For example, setting:
 ```
 
 will create a proxy server to forward API requests from `http://localhost:8000/api/foo/bar` to `http://example.org/api/foo/bar`.
-

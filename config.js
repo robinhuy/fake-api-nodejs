@@ -5,7 +5,7 @@ export const CONFIG = {
   refreshTokenExpiresInMinutes: '10080',
   databaseFile: 'database.json',
   urlRewriteFile: 'url-rewrite.json',
-  proxyServer: 'http://example.org',
-  proxyUrl: '/api',
+  proxyServer: 'https://huydq.dev',
+  proxyUrl: '/blog',
   defaultPort: 8000,
 };
