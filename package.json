@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/robinhuy/fake-api-nodejs#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express-graphql": "^0.12.0",
     "formidable": "^2.1.1",
     "graphql": "^16.6.0",

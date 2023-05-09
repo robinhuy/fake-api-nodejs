@@ -5,6 +5,7 @@ import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { Server } from 'socket.io';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import cors from 'cors';
 
 import { CONFIG } from './config.js';
 import { isAuthenticated } from './utils/jwt-authenticate.js';
@@ -43,6 +44,14 @@ app.use(
   createProxyMiddleware({
     target: CONFIG.proxyServer,
     changeOrigin: true,
+    ws: true,
+    logger: console,
+    onProxyRes: function (proxyRes, req, res) {
+      cors()(req, res, () => {
+        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+        proxyRes.headers['Access-Control-Allow-Methods'] = '*';
+      });
+    },
   })
 );
 
