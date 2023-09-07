@@ -39,18 +39,20 @@ io.on('connection', (socket) => {
 });
 
 // Config proxy middlewares
-app.use(
-  CONFIG.proxyUrl,
-  createProxyMiddleware({
-    target: CONFIG.proxyServer,
-    changeOrigin: true,
-    ws: true,
-    logger: console,
-    onProxyRes: function (proxyRes, req, res) {
-      cors()(req, res, () => {});
-    },
-  })
-);
+if (CONFIG.proxyServer) {
+  app.use(
+    CONFIG.proxyUrl,
+    createProxyMiddleware({
+      target: CONFIG.proxyServer,
+      changeOrigin: true,
+      ws: true,
+      logger: console,
+      onProxyRes: function (proxyRes, req, res) {
+        cors()(req, res, () => {});
+      },
+    })
+  );
+}
 
 // Init graphql
 app.use('/graphql', graphqlHTTP({ schema, rootValue: setupRootValue(db), graphiql: true }));
